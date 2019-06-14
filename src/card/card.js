@@ -70,7 +70,7 @@ class Card extends Clickable {
   }
 
   canDiscard() {
-    return Types.time !== this.type && Types.instant !== this.type;
+    return Types.time !== this.type && Types.script !== this.type;
   }
 
   isPerma() {

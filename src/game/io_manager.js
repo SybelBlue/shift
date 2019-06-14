@@ -22,8 +22,8 @@ function objectUnderCursor() {
     }
   }
 
-  if (game.permaZone.testInteract()) {
-    return game.permaZone;
+  if (game.desktop.testInteract()) {
+    return game.desktop;
   }
 
   return null;
@@ -44,7 +44,9 @@ function checkClick() {
 }
 
 function constructCardFromJSON(json) {
-  return new Card(json.name, json.ruleset, json.type);
+  var card = new Card(json.name, json.ruleset, json.type);
+  card.json_rep = json;
+  return card;
 }
 
 function constructCardArrayFromJSONs(json_arr) {

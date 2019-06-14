@@ -15,7 +15,7 @@ function setup() {
   game.playCardPile = makeNewTypedDiscard(Types.play);
   game.goalCardPile = makeNewTypedDiscard(Types.end);
 
-  game.permaZone = new PermaZone();
+  game.desktop = new Desktop();
 
   var starters = constructCardArrayFromJSONs(startingCards);
   starters.forEach(autoplay);
@@ -28,8 +28,8 @@ function windowResized() {
   game.hand.dimension = Hand.defaultDimensions();
   game.deck.position = Deck.defaultPosition();
   game.discard.position = Discard.defaultPosition();
-  game.permaZone.position = PermaZone.defaultPosition();
-  game.permaZone.dimension = PermaZone.defaultDimensions();
+  game.desktop.position = Desktop.defaultPosition();
+  game.desktop.dimension = Desktop.defaultDimensions();
 
   game.hand.rearrange();
   game.deck.rearrange();
@@ -42,7 +42,7 @@ function draw() {
   game.deck.display();
   game.discard.display();
 
-  game.permaZone.display();
+  game.desktop.display();
 
   game.typedDiscards.forEach(pile => pile.display());
   game.allCards.filter(card => card.visible && !card.parent)
@@ -57,7 +57,7 @@ function mouseClicked(e) {
 
   var card = game.selectedStack.peek();
   if (card && card.isCard() && card.isPerma()) {
-    game.permaZone.collect(card);
+    game.desktop.collect(card);
   }
 }
 
@@ -81,7 +81,7 @@ function autoplay(e=undefined) {
         card.discard();
         return;
       } else {
-        game.permaZone.collect(card);
+        game.desktop.collect(card);
         return;
       }
   }

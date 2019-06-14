@@ -1,6 +1,6 @@
-class PermaZone extends PlayableField {
+class Desktop extends PlayableField {
   constructor() {
-    super(PermaZone.defaultPosition(), PermaZone.defaultDimensions());
+    super(Desktop.defaultPosition(), Desktop.defaultDimensions());
     this.usedRegions = [];
   }
 
