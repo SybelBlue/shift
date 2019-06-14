@@ -50,11 +50,12 @@ const COLOR_BAND_WIDTH = 15;
 const HAND_HEIGHT = CARD_HEIGHT + 20;
 const DECK_WIDTH = CARD_WIDTH + 20, DECK_HEIGHT = HAND_HEIGHT;
 
-let hourglass_icon, graffiti_text_font, brux_font, halt_font;
+let hourglass_icon, graffiti_text_font, brux_font, halt_font, mechanical_font;
 function preload() {
   hourglass_icon = loadImage('res/hourglass_icon.png');
   graffiti_text_font = loadFont('res/GraffitiPaintBrush.ttf');
   // brux_font = loadFont('res/webfontkit/brux-regular-webfont.woff');
   halt_font = loadFont('res/Halt.ttf');
-  main_font = halt_font;
+  mechanical_font = loadFont('/res/mechanical/Mechanical.otf');
+  main_font = mechanical_font;
 }

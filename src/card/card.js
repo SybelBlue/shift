@@ -53,7 +53,7 @@ class Card extends Clickable {
     text(this.name, name.x, name.y,
       name.width * this.scale, name.height * this.scale);
 
-    if (this.type === Types.time) {
+    if (this.type === Types.tick) {
       image(hourglass_icon, name.x, name.y + name.height + 5,
           name.width * this.scale, (this.height - name.height - 10) * this.scale,
           130, 30, 512 - 2 * 130, 512 - 2 * 30);
@@ -70,15 +70,15 @@ class Card extends Clickable {
   }
 
   canDiscard() {
-    return Types.time !== this.type && Types.script !== this.type;
+    return Types.tick !== this.type && Types.script !== this.type;
   }
 
   isPerma() {
     return false;
   }
 
-  makeBody() {
-    rect(this.position.x, this.position.y,
+  makeBody(position=this.position) {
+    rect(position.x, position.y,
          ...this.dimension.map(n => n * this.scale),
          ...this.cornerRoundPx.map(n => n * this.scale));
   }

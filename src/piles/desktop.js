@@ -65,6 +65,6 @@ class Desktop extends PlayableField {
   }
 
   static defaultDimensions() {
-    return [width - 20, height - (HAND_HEIGHT + 20 + DECK_HEIGHT + 20)];
+    return [width - 20, height - (HAND_HEIGHT + 20 + DECK_HEIGHT/2 + 20)];
   }
 }

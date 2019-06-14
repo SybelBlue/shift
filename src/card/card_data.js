@@ -1,35 +1,43 @@
 const Types = Object.freeze({
   play: {
       name: 'play',
-      color: [250, 100, 50]
+      color: [250, 100, 50],
+      desc: 'Play at least the number of cards described below each turn.'
     },
   draw: {
       name: 'draw',
-      color: [50, 50, 250]
+      color: [50, 50, 250],
+      desc: 'Draw the number of cards described below each turn.'
     },
-  command: { // rule
+  command: {
       name: 'command',
-      color: [55, 55, 55]
+      color: [55, 55, 55],
+      desc: 'This card alters the rules of the game for all players.'
     },
   end: {
       name: 'end',
-      color: [100, 250, 50]
+      color: [100, 250, 50],
+      desc: 'This card describes a condition to win the game.'
     },
-  time: { // tick
+  tick: {
       name: 'time',
-      color: [117, 221, 221]
+      color: [117, 221, 221],
+      desc: 'Tick tock! (This card has no use on its own.)'
     },
-  script: { // instant
+  script: {
       name: 'script',
-      color: [150, 50, 250]
+      color: [150, 50, 250],
+      desc: 'This card is good for one use. Use wisely and discard.'
     },
   program: {
       name: 'program',
-      color: [55, 55, 55]
+      color: [55, 55, 55],
+      desc: 'This card will remain on the desktop until removal.'
     },
   virus: {
       name: 'virus',
-      color: [55, 55, 55]
+      color: [55, 55, 55],
+      desc: 'This card will remain on the desktop until removal.'
     }
 });
 
@@ -159,8 +167,8 @@ cards = [
 {"desc": "You may let a player steal a random card from your hand to draw two cards", "ticks": 0, "name": "Ask Your Grandson", "type": Types.command},
 {"desc": "Discard all rules cards, including this one.", "ticks": 0, "name": "Clear Command Line", "type": Types.command},
 {"desc": "Play with hands open", "ticks": 0, "name": "Public Network", "type": Types.command},
-{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.time},
-{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.time},
-{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.time},
-{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.time}
+{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick},
+{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick},
+{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick},
+{"desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick}
 ]

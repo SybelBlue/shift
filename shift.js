@@ -6,7 +6,7 @@ function setup() {
   game.canvas = createCanvas(windowWidth, windowHeight);
   game.canvas.doubleClicked(autoplay);
 
-  textFont(graffiti_text_font);
+  textFont(main_font);
 
   game.hand = new Hand();
   game.deck = new Deck();
