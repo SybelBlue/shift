@@ -2,7 +2,6 @@ class Clickable extends Transformable {
   constructor(position, dimension) {
     super(position, dimension);
     this.interactable_ = true;
-    this.parent;
     this.targetPosition_;
     this.animStart;
   }
@@ -43,6 +42,9 @@ class Clickable extends Transformable {
   }
 
   lerpTo(targetPosition, speed=ANIM_MILLIS) {
+    if (this.position == targetPosition) {
+      return;
+    }
     this.targetPosition = targetPosition;
     this.animStart = {time: Date.now(), pos: this.position, speed: speed};
   }

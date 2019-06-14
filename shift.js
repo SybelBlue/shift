@@ -6,6 +6,8 @@ function setup() {
   game.canvas = createCanvas(windowWidth, windowHeight);
   game.canvas.doubleClicked(autoplay);
 
+  textFont(main_font);
+
   game.hand = new Hand();
   game.deck = new Deck();
   game.discard = new Discard();
@@ -13,7 +15,7 @@ function setup() {
   game.playCardPile = makeNewTypedDiscard(Types.play);
   game.goalCardPile = makeNewTypedDiscard(Types.end);
 
-  game.permaZone = new PermaZone();
+  game.desktop = new Desktop();
 
   var starters = constructCardArrayFromJSONs(startingCards);
   starters.forEach(autoplay);
@@ -26,8 +28,8 @@ function windowResized() {
   game.hand.dimension = Hand.defaultDimensions();
   game.deck.position = Deck.defaultPosition();
   game.discard.position = Discard.defaultPosition();
-  game.permaZone.position = PermaZone.defaultPosition();
-  game.permaZone.dimension = PermaZone.defaultDimensions();
+  game.desktop.position = Desktop.defaultPosition();
+  game.desktop.dimension = Desktop.defaultDimensions();
 
   game.hand.rearrange();
   game.deck.rearrange();
@@ -36,16 +38,32 @@ function windowResized() {
 function draw() {
   background(129, 164, 205);
 
-  game.hand.display();
   game.deck.display();
   game.discard.display();
-
-  game.permaZone.display();
+  game.desktop.display();
+  game.hand.display();
 
   game.typedDiscards.forEach(pile => pile.display());
   game.allCards.filter(card => card.visible && !card.parent)
     .forEach(card => card.display());
   game.selectedStack.reverse().forEach(pile => pile.display());
+
+  if (!(frameCount % 10)) {
+    // checkHover();
+  }
+}
+
+function checkHover() {
+  var object = objectUnderCursor();
+
+  if (object != game.lastHovered && game.lastHovered) {
+    game.lastHovered.hover = false;
+  }
+
+  if (object instanceof Card) {
+    object.hover = true;
+    game.lastHovered = object;
+  }
 }
 
 function mouseClicked(e) {
@@ -54,8 +72,8 @@ function mouseClicked(e) {
   }
 
   var card = game.selectedStack.peek();
-  if (card && card.isCard() && card.isKeeper()) {
-    game.permaZone.collect(card);
+  if (card && card.isCard() && card.isPerma()) {
+    game.desktop.collect(card);
   }
 }
 
@@ -79,7 +97,7 @@ function autoplay(e=undefined) {
         card.discard();
         return;
       } else {
-        game.permaZone.collect(card);
+        game.desktop.collect(card);
         return;
       }
   }
