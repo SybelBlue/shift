@@ -36,18 +36,6 @@ startingCards = [
 
 cards = [
   {
-    name: 'Play 1',
-    type: Types.play,
-    ruleset: [['immediate', gvset(CARDS_TO_PLAY, gfret(1))]],
-    desc: 'Play a card per turn.'
-  },
-  {
-    name: 'Draw 1',
-    type: Types.draw,
-    ruleset: [['immediate', gvset(CARDS_TO_DRAW, gfret(1))]],
-    desc: 'Draw a card per turn.'
-  },
-  {
     name: 'Time!',
     type: Types.time,
     ruleset: null

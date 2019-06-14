@@ -1,6 +1,7 @@
 class PermaZone extends PlayableField {
   constructor() {
     super(PermaZone.defaultPosition(), PermaZone.defaultDimensions());
+    this.usedRegions = [];
   }
 
   display() {
@@ -8,16 +9,55 @@ class PermaZone extends PlayableField {
   }
 
   collect(card) {
+    var contains = this.cards.includes(card);
     super.collect(card);
-    card.lerpTo(this.randomLocation());
-    game.events.play.fire(card, this);
+    if (!contains && !this.testHit()) {
+      var loc = this.randomLocation();
+      game.events.play.fire(card, this);
+    } else {
+      var upperX = this.x + this.width - 10 - CARD_WIDTH/2;
+      var lowerX = this.x + 10 + CARD_WIDTH/2;
+      var upperY = this.y + this.height - 10 - CARD_HEIGHT/2;
+      var lowerY = this.y + 10 + CARD_HEIGHT/2;
+      var x = Math.max(lowerX, Math.min(mouseX, upperX));
+      var y = Math.max(lowerY, Math.min(mouseY, upperY));
+      rect(lowerX, lowerY, upperX-lowerX, upperY-lowerY);
+      var loc = createVector(x - CARD_WIDTH/2, y - CARD_HEIGHT/2);
+      this.usedRegions = [];
+      this.cards.filter(c => c != card).map(c => c.position)
+          .forEach(p => this.markUsed(p.x, p.y));
+    }
+    this.markUsed(loc);
+    card.lerpTo(loc);
   }
 
   rearrange() { return; }
 
   randomLocation() {
-    return createVector(this.x + random(10, this.width - CARD_WIDTH - 10),
-        this.y + random(10, this.height - CARD_HEIGHT - 10));
+    var attempts = 0;
+    var out;
+    do {
+      out = createVector(this.x + random(10, this.width - CARD_WIDTH - 10),
+          this.y + random(10, this.height - CARD_HEIGHT - 10));
+      attempts++;
+    } while (attempts < 40 && this.inUsedRegion(out.x, out.y));
+    if (attempts >= 40) {
+      game.debug.log('cleared used regions', this.usedRegions);
+      this.usedRegions = [];
+    }
+    return out;
+  }
+
+  inUsedRegion(x, y) {
+    return this.usedRegions.find(r => r.testHit(x, y)) != null;
+  }
+
+  markUsed(pos) {
+    var location = createVector(pos.x, pos.y);
+    location.x -= CARD_WIDTH;
+    location.y -= CARD_HEIGHT;
+    var region = new Transformable(location, [1.75*CARD_WIDTH, 1.75*CARD_HEIGHT]);
+    this.usedRegions.push(region);
   }
 
   static defaultPosition() {

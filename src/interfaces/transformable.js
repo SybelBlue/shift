@@ -58,4 +58,8 @@ class Transformable {
         this.testHit(other.x + other.width, other.y) ||
         other.overlaps(this, false);
   }
+
+  copyTransformable() {
+    return new Transformable(this.position, this.dimension);
+  }
 }

@@ -6,6 +6,8 @@ function setup() {
   game.canvas = createCanvas(windowWidth, windowHeight);
   game.canvas.doubleClicked(autoplay);
 
+  textFont(graffiti_text_font);
+
   game.hand = new Hand();
   game.deck = new Deck();
   game.discard = new Discard();
@@ -54,7 +56,7 @@ function mouseClicked(e) {
   }
 
   var card = game.selectedStack.peek();
-  if (card && card.isCard() && card.isKeeper()) {
+  if (card && card.isCard() && card.isPerma()) {
     game.permaZone.collect(card);
   }
 }

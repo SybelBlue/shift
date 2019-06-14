@@ -73,7 +73,7 @@ class Card extends Clickable {
     return Types.time !== this.type && Types.instant !== this.type;
   }
 
-  isKeeper() {
+  isPerma() {
     return false;
   }
 
@@ -84,7 +84,6 @@ class Card extends Clickable {
   }
 
   set parent(value) {
-    game.debug.log('parent change', [this, this.parent_, value]);
     this.parent_ = value;
   }
 

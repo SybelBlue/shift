@@ -22,6 +22,10 @@ function objectUnderCursor() {
     }
   }
 
+  if (game.permaZone.testInteract()) {
+    return game.permaZone;
+  }
+
   return null;
 }
 
