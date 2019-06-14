@@ -38,16 +38,32 @@ function windowResized() {
 function draw() {
   background(129, 164, 205);
 
-  game.hand.display();
   game.deck.display();
   game.discard.display();
-
   game.desktop.display();
+  game.hand.display();
 
   game.typedDiscards.forEach(pile => pile.display());
   game.allCards.filter(card => card.visible && !card.parent)
     .forEach(card => card.display());
   game.selectedStack.reverse().forEach(pile => pile.display());
+
+  if (!(frameCount % 10)) {
+    // checkHover();
+  }
+}
+
+function checkHover() {
+  var object = objectUnderCursor();
+
+  if (object != game.lastHovered && game.lastHovered) {
+    game.lastHovered.hover = false;
+  }
+
+  if (object instanceof Card) {
+    object.hover = true;
+    game.lastHovered = object;
+  }
 }
 
 function mouseClicked(e) {

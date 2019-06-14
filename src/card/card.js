@@ -8,8 +8,6 @@ class Card extends Clickable {
     this.type = type;
     this.name = name;
 
-    this.parent_;
-
     game.allCards.push(this);
   }
 
@@ -81,13 +79,5 @@ class Card extends Clickable {
     rect(position.x, position.y,
          ...this.dimension.map(n => n * this.scale),
          ...this.cornerRoundPx.map(n => n * this.scale));
-  }
-
-  set parent(value) {
-    this.parent_ = value;
-  }
-
-  get parent() {
-    return this.parent_;
   }
 }

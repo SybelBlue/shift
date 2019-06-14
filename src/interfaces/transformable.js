@@ -3,7 +3,9 @@ class Transformable {
     this.position = position;
     this.dimension = dimension;
     this.id = Date.now();
+    this.children = [];
     this.visible_ = true;
+    this.parent_;
   }
 
   get x() {
@@ -44,6 +46,34 @@ class Transformable {
 
   get visible() {
     return this.visible_;
+  }
+
+  set parent(value) {
+    if (this.parent_) {
+      this.localPosition.add(this.parent_.position);
+    }
+    this.parent_ = value;
+    this.parent_.children.push(this);
+    this.position = this.localPosition;
+  }
+
+  get parent() {
+    return this.parent_;
+  }
+
+  set position(value) {
+    if (this.parent) {
+      this.localPosition = p5.Vector.sub(value, this.parent.position);
+    } else {
+      this.localPosition = value;
+    }
+  }
+
+  get position() {
+    if (this.parent) {
+      return p5.Vector.add(this.parent.position, this.localPosition);
+    }
+    return this.localPosition;
   }
 
   testHit(x=mouseX, y=mouseY) {
