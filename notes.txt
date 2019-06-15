@@ -11,3 +11,7 @@ within newConnection:
     // to send back out to >>all<< sockets...
     // io.sockets.emit(flag, data)
   }
+
+
+  var clients = io.sockets.clients();
+  var clients = io.sockets.clients('room'); // all users from room `room`

@@ -94,17 +94,32 @@ class Card extends Clickable {
          ...this.cornerRoundPx.map(n => n * this.scale));
   }
 
-  makeName(data) {
-    var currentY = data.y;
-    for (var line of this.name_.lines) {
-      text(line.stringify(), data.x, currentY);
-      currentY += line.height + 2;
+  makeName() {
+    push();
+    noStroke();
+    fill(color(...this.type.color));
+    rotate(-PI/2);
+    textSize(this.fontSize);
+    textAlign(LEFT, CENTER);
+    var data = {
+      x: -(this.y + this.height - 10),
+      y: this.x + COLOR_BAND_WIDTH + 20
     }
+
+    for (var line of this.name_.lines) {
+      text(line.stringify(), data.x, data.y);
+      data.y += line.height + 2;
+    }
+    // text(this.name, data.x, data.y,
+    //       (this.height - COLOR_BAND_WIDTH) * 0.8, this.width * 0.8);
+    pop();
   }
 
   set name(value) {
+    // var result = generateTextBox(value,
+    //   this.width - COLOR_BAND_WIDTH - 20, this.height / 3, 2);
     var result = generateTextBox(value,
-      this.width - COLOR_BAND_WIDTH - 20, this.height / 3, 2);
+      this.height * 0.8, (this.width - COLOR_BAND_WIDTH - 20) * 0.8, 2);
     this.name_ = result.lines;
     this.fontSize = result.fontSize;
   }

@@ -5,7 +5,6 @@ function updateAvgFrameRate() {
 
 function mouseClicked(e) {
   var clicked = checkClick();
-  socket.emit('click', objectUnderCursor() && objectUnderCursor().name);
 }
 
 function checkHover() {
@@ -25,7 +24,7 @@ function objectUnderCursor() {
   if (game.lastHovered && game.lastHovered.testHit()) {
     return game.lastHovered;
   }
-  
+
   if (game.deck.testHit()) {
     return game.deck;
   }

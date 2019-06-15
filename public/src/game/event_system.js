@@ -68,6 +68,8 @@ const defaultOnDraw = function(card, player, ...args) {
   game.values[CARDS_DRAWN]++;
   game.debug.log('defaultOnDraw: cards drawn: ' + game.values[CARDS_DRAWN],
       arguments);
+
+  socket.emit('draw', {card: card.name, player: player});
 }
 
 const defaultOnStart = function(player, ...args) {
