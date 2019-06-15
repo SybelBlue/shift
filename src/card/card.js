@@ -41,15 +41,15 @@ class Card extends Clickable {
          this.cornerRoundPx[0], 0, 0, this.cornerRoundPx[3]);
 
     noStroke();
-    textSize(20);
+    textSize(this.fontSize);
+    textAlign(LEFT)
     var name = {
-      x: position.x + COLOR_BAND_WIDTH + 5,
-      y: position.y + 5,
-      height: 30,
-      width: (this.width - COLOR_BAND_WIDTH - 10)
-    }
-    text(this.name, name.x, name.y,
-      name.width * this.scale, name.height * this.scale);
+      x: position.x + COLOR_BAND_WIDTH + 10,
+      y: position.y + 5 + this.name_.lines[0].height,
+    };
+    // text(this.name, name.x, name.y,
+    //   name.width * this.scale, name.height * this.scale);
+    this.makeName(name);
 
     if (this.type === Types.tick) {
       image(hourglass_icon, name.x, name.y + name.height + 5,
@@ -79,5 +79,24 @@ class Card extends Clickable {
     rect(position.x, position.y,
          ...this.dimension.map(n => n * this.scale),
          ...this.cornerRoundPx.map(n => n * this.scale));
+  }
+
+  makeName(data) {
+    var currentY = data.y;
+    for (var line of this.name_.lines) {
+      text(line.stringify(), data.x, currentY);
+      currentY += line.height + 2;
+    }
+  }
+
+  set name(value) {
+    var result = generateTextBox(value,
+      this.width - COLOR_BAND_WIDTH - 20, this.height / 3, 2);
+    this.name_ = result.lines;
+    this.fontSize = result.fontSize;
+  }
+
+  get name() {
+    return this.name_.listify().join(' ');
   }
 }

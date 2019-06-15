@@ -1,7 +1,3 @@
-Array.prototype.peek = function() {
-  return this.length? this[this.length - 1]: null;
-}
-
 function setup() {
   game.canvas = createCanvas(windowWidth, windowHeight);
   game.canvas.doubleClicked(autoplay);
@@ -51,6 +47,8 @@ function draw() {
   if (!(frameCount % 10)) {
     // checkHover();
   }
+  game.avgFrameRate = ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate()) 
+    / frameCount;
 }
 
 function checkHover() {

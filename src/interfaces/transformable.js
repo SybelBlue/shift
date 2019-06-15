@@ -40,14 +40,6 @@ class Transformable {
     this.dimension[1] = value;
   }
 
-  set visible(value) {
-    this.visible_ = value;
-  }
-
-  get visible() {
-    return this.visible_;
-  }
-
   set parent(value) {
     if (this.parent_) {
       this.localPosition.add(this.parent_.position);

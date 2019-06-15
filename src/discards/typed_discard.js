@@ -17,19 +17,19 @@ class TypedDiscard extends Discard {
 
   display() {
     super.display(this.type.color);
-    if (!this.cards.length && this.defaultValue) {
+    if (this.defaultValue) {
       noStroke();
       fill(255);
       ellipse(this.x + this.width/2, this.y + this.height/2,
          this.width/2, this.width/2);
       fill(this.type.color);
-      var label = '' + this.defaultValue;
       var x = this.x + this.width/2;
       var y = this.y + this.height/2;
-      var size = 50;
+      var size = 60;
       textSize(size);
-      var bbox = main_font.textBounds(label, x, y, size);
-      text(label, x - bbox.w/2, y - bbox.h/2, bbox.w, bbox.h);
+      textAlign(CENTER)
+      var bbox = main_font.textBounds('1', x, y, size);
+      text('1', x, y + bbox.h/2);
     }
   }
 
