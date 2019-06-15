@@ -1,0 +1,27 @@
+{
+  "name": "shift",
+  "version": "1.0.0",
+  "description": "the shift card game",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SybelBlue/shift.git"
+  },
+  "author": "SybelBlue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SybelBlue/shift/issues"
+  },
+  "homepage": "https://github.com/SybelBlue/shift#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}

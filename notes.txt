@@ -1,0 +1,13 @@
+socket.emit(flag, data)
+
+
+within newConnection:
+  > if particular socket sends message
+  socket.on(flag, recieverFn);
+  function recieverFn(data) {
+    /* process data */
+    // to send back out to all other sockets...
+    socket.broadcast.emit(flag, data)
+    // to send back out to >>all<< sockets...
+    // io.sockets.emit(flag, data)
+  }

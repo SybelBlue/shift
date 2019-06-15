@@ -1,0 +1,42 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script type="application/javascript">
+  let scripts = ["../lib/p5.min.js",
+    "../lib/p5.dom.min.js",
+    // "../lib/p5.sound.min.js",
+    "game/constants_and_values.js",
+    "game/static_utils.js",
+    "game/event_system.js",
+    "game/turn_system.js",
+    "game/io_manager.js",
+    "interfaces/transformable.js",
+    "interfaces/clickable.js",
+    "interfaces/playable_field.js",
+    "card/card_data.js",
+    "card/card.js",
+    "piles/deck.js",
+    "piles/popup_display.js",
+    "piles/hand.js",
+    "piles/desktop.js",
+    "discards/discard.js",
+    "discards/typed_discard.js",
+    "discards/goal_discard.js",
+    "../shift.js"
+  ];
+  // Constantly-changing query string is ignored by server, but causes
+  // client to re-request JS files instead of caching them
+  let cacheBuster = "?" + new Date().getTime();
+
+  for (let script of scripts) {
+      document.write("<scr" + "ipt src='src/" + script + cacheBuster + "'></scr" + "ipt>");
+  }
+  </script>
+  <!-- This line removes any default padding and style.
+       You might only need one of these values set. -->
+  <style> body { padding: 0; margin: 0; } </style>
+</head>
+<body></body>
+</html>
