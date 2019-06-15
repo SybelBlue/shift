@@ -8,6 +8,7 @@ class Card extends Clickable {
     this.type = type;
     this.name = name;
     this.desc = type.desc + ' ' + desc;
+    this.jiggle = {t: 200, s: 2, x: 10};
 
     game.allCards.push(this);
   }
@@ -33,7 +34,18 @@ class Card extends Clickable {
   }
 
   paintFront() {
-    var position = this.position;
+    var position = this.position.copy();
+
+    if (this.jiggle.start != null) {
+      var xDisp = this.jiggle.x * Math.sin(
+        TAU * this.jiggle.s * (Date.now() - this.jiggle.start) / this.jiggle.t
+      );
+      position.x += xDisp;
+      if (Date.now() - this.jiggle.start > this.jiggle.t) {
+        this.jiggle.start = null;
+      }
+    }
+
     fill(255);
     this.makeBody();
     fill(color(...this.type.color));
@@ -51,14 +63,6 @@ class Card extends Clickable {
 
     this.makeName(name);
 
-    // if (this.desc && this.desc.length) {
-    //   var desc = {
-    //     x: name.x,
-    //     y: name.y + this.name_.getLinesHeight() + 10
-    //   }
-    //   this.makeDesc(desc);
-    // }
-
     if (this.type === Types.tick) {
       image(hourglass_icon, name.x, name.y + name.height + 5,
           name.width * this.scale, (this.height - name.height - 10) * this.scale,
@@ -75,12 +79,13 @@ class Card extends Clickable {
     game.discard.collect(this, true, fire);
   }
 
-  canDiscard() {
-    return Types.tick !== this.type && Types.script !== this.type;
+  shake() {
+    this.jiggle.start = Date.now();
+    game.debug.log('shaking', this.jiggle);
   }
 
-  isPerma() {
-    return false;
+  canDiscard() {
+    return Types.tick !== this.type && Types.virus !== this.type;
   }
 
   makeBody(position=this.position) {
@@ -110,8 +115,8 @@ class Card extends Clickable {
 
   set hover(value) {
     this.hover_ = value;
-    if (this.parent == game.hand && this.desc) {
-      this.parent.requestDescription = value? this: null;
+    if (this.desc) {
+      game.hand.requestDescription = value? this: null;
     }
   }
 }

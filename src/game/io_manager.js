@@ -1,28 +1,28 @@
 function objectUnderCursor() {
-  if (game.deck.testInteract()) {
+  if (game.deck.testHit()) {
     return game.deck;
   }
-  if (game.discard.testInteract()) {
+  if (game.discard.testHit()) {
     return game.discard;
   }
 
   for (var card of game.allCards.reverse()) {
-    if (card.testInteract()) {
+    if (card.testHit()) {
       return card;
     }
   }
 
-  if (game.hand.testInteract()) {
+  if (game.hand.testHit()) {
     return game.hand;
   }
 
   for (var pile of game.typedDiscards) {
-    if (pile.testInteract()) {
+    if (pile.testHit()) {
       return pile;
     }
   }
 
-  if (game.desktop.testInteract()) {
+  if (game.desktop.testHit()) {
     return game.desktop;
   }
 

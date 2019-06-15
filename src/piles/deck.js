@@ -23,22 +23,30 @@ class Deck extends PlayableField {
   }
 
   select() {
-    if (!this.cards.length) {
-      if (game.discard.cards.length) {
-        while (game.discard.cards.length) {
-          this.collect(game.discard.cards.peek());
-        }
-      } else {
-        console.log('mooooooore');
-        return;
-      }
-    }
     game.selectedStack.pop();  // self
-    var card = this.drawRandom();
-    game.hand.collect(card);
+    this.draw();
   }
 
-  drawRandom() {
+  draw(destPlayer=null) { // for later use
+    if (!this.cards.length) {
+      this.refresh();
+    }
+    var card = this.getRandom();
+    game.hand.collect(card); // fix here
+  }
+
+  refresh() {
+    if (game.discard.cards.length) {
+      while (game.discard.cards.length) {
+        this.collect(game.discard.cards.peek());
+      }
+      return;
+    }
+
+    game.debug.log('mooooooore');
+  }
+
+  getRandom() {
     var index = Math.floor(random() * this.cards.length) % this.cards.length;
     var card = this.cards[index];
     card.flipped = true;

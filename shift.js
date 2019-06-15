@@ -2,13 +2,13 @@
 // TODO: list
 
 // fix selecetion system
-// display text description better
+// display text description, bug December '69 too big, triangle follows card
 // finsh game event system
 // make turn system
 
 */
 function setup() {
-  game.canvas = createCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth), 
+  game.canvas = createCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth),
     Math.max(40 + 3.5 * DECK_HEIGHT, windowHeight));
   game.canvas.doubleClicked(autoplay);
 
@@ -26,6 +26,8 @@ function setup() {
   var starters = constructCardArrayFromJSONs(startingCards);
   starters.forEach(autoplay);
   game.values.reset();
+
+  game.events.turnStart.fire(null);
 }
 
 function windowResized() {
@@ -58,44 +60,27 @@ function draw() {
   if (!(frameCount % 10)) {
     checkHover();
   }
-  game.avgFrameRate = ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate())
-    / frameCount;
-}
 
-function checkHover() {
-  var object = objectUnderCursor();
-
-  if (object != game.lastHovered && game.lastHovered) {
-    game.lastHovered.hover = false;
-  }
-
-  if (object instanceof Card) {
-    object.hover = true;
-    game.lastHovered = object;
-  }
-}
-
-function mouseClicked(e) {
-  if (checkClick()) {
-    return;
-  }
-
-  var card = game.selectedStack.peek();
-  if (card && card.isCard() && card.isPerma()) {
-    game.desktop.collect(card);
-  }
+  updateAvgFrameRate();
 }
 
 function autoplay(e=undefined) {
   var card = e;
   if (!(card instanceof Card)) {
     card = objectUnderCursor();
-    if (!(card instanceof Card)) {
+    if (!(card instanceof Card) || !card.interactable) {
       return;
     }
   }
 
   game.debug.log('autoplaying', e);
+
+  if (game.values[CARDS_PLAYED] >= game.values[CARDS_TO_PLAY]()) {
+    game.debug.log('reject, too many cards played');
+    card.shake();
+    return;
+  }
+
   var candidates = game.typedDiscards.filter(pile => pile.type === card.type);
   switch (candidates.length) {
     case 1:
@@ -111,21 +96,4 @@ function autoplay(e=undefined) {
       }
   }
   game.debug.log(card.name + ' fell through', candidates);
-}
-
-function makeNewTypedDiscard(type) {
-  function getNewTypedDiscardPosition() {
-    function sumPile(prop) {
-      return game.typedDiscards.map(item => item[prop]).reduce((a, b) => a + b, 0);
-    }
-    return createVector(10 * (game.typedDiscards.length + 1) + sumPile('width'), 10);
-  }
-  var pos = getNewTypedDiscardPosition();
-  if (type !== Types.end) {
-    var item = new TypedDiscard(pos, type);
-  } else {
-    var item = new GoalDiscard(pos);
-  }
-  game.typedDiscards.push(item);
-  return item;
 }
