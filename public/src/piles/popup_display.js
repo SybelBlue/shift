@@ -57,7 +57,7 @@ class HandPopupDisplay extends Transformable {
   }
 
   static defaultPosition() {
-    var handPos = Hand.defaultPosition();
+    var handPos = game.hand? game.hand.refreshPosition(): Hand.defaultPosition();
     handPos.y -= 10 + HandPopupDisplay.defaultDimensions()[1];
     return handPos;
   }

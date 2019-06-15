@@ -6,29 +6,6 @@ Array.prototype.sum = function() {
   return this.reduce(sum, 0);
 }
 
-function updateAvgFrameRate() {
-  game.avgFrameRate =
-    ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate()) / frameCount;
-}
-
-function mouseClicked(e) {
-  var clicked = checkClick();
-  socket.emit('click', objectUnderCursor() && objectUnderCursor().name);
-}
-
-function checkHover() {
-  var object = objectUnderCursor();
-
-  if (object != game.lastHovered && game.lastHovered) {
-    game.lastHovered.hover = false;
-  }
-
-  if (object instanceof Card) {
-    object.hover = true;
-    game.lastHovered = object;
-  }
-}
-
 function makeNewTypedDiscard(type) {
   function getNewTypedDiscardPosition() {
     function sumPile(prop) {

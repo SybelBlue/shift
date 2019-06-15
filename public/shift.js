@@ -35,9 +35,10 @@ function setup() {
 function windowResized() {
   resizeCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth),
     Math.max(40 + 3.5 * DECK_HEIGHT, windowHeight));
-  game.hand.position = Hand.defaultPosition();
+  game.hand.position = game.hand.refreshPosition();
   game.hand.dimension = Hand.defaultDimensions();
-  game.hand.
+  game.hand.popUp.dimension = HandPopupDisplay.defaultDimensions();
+  game.hand.popUp.position = HandPopupDisplay.defaultPosition();
   game.deck.position = Deck.defaultPosition();
   game.discard.position = Discard.defaultPosition();
   game.desktop.position = Desktop.defaultPosition();

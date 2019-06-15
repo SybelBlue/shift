@@ -3,6 +3,7 @@ class Hand extends PlayableField {
     super(Hand.defaultPosition(), Hand.defaultDimensions());
     this.player = player;
     this.popUp = new HandPopupDisplay(this);
+    this.highMode = false;
   }
 
   collect(card) {
@@ -18,7 +19,7 @@ class Hand extends PlayableField {
       this.position = this.nextLerpPosition_();
     }
     super.display(color(55, 55, 55, 150));
-    if (mouseY >= this.y) {
+    if (this.highMode = (mouseY >= this.y)) {
       this.lerpTo(Hand.upperPosition(), 50);
     } else {
       this.lerpTo(Hand.defaultPosition(), 50);
@@ -29,6 +30,10 @@ class Hand extends PlayableField {
 
   set requestDescription(value) {
     this.popUp.item = value;
+  }
+
+  refreshPosition() {
+    return this.highMode? Hand.upperPosition(): Hand.defaultPosition();
   }
 
   static defaultPosition() {

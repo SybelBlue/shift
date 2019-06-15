@@ -1,4 +1,31 @@
+function updateAvgFrameRate() {
+  game.avgFrameRate =
+    ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate()) / frameCount;
+}
+
+function mouseClicked(e) {
+  var clicked = checkClick();
+  socket.emit('click', objectUnderCursor() && objectUnderCursor().name);
+}
+
+function checkHover() {
+  var object = objectUnderCursor();
+
+  if (object != game.lastHovered && game.lastHovered) {
+    game.lastHovered.hover = false;
+  }
+
+  if (object instanceof Card) {
+    object.hover = true;
+    game.lastHovered = object;
+  }
+}
+
 function objectUnderCursor() {
+  if (game.lastHovered && game.lastHovered.testHit()) {
+    return game.lastHovered;
+  }
+  
   if (game.deck.testHit()) {
     return game.deck;
   }
