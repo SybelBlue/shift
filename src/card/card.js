@@ -1,5 +1,5 @@
 class Card extends Clickable {
-  constructor(name, ruleset, type) {
+  constructor(name, ruleset, type, desc='') {
     super(new p5.Vector(10, 10, 0), [CARD_WIDTH, CARD_HEIGHT]);
     this.flipped = false;
     this.scale = 1;
@@ -7,6 +7,7 @@ class Card extends Clickable {
 
     this.type = type;
     this.name = name;
+    this.desc = type.desc + ' ' + desc;
 
     game.allCards.push(this);
   }
@@ -47,9 +48,16 @@ class Card extends Clickable {
       x: position.x + COLOR_BAND_WIDTH + 10,
       y: position.y + 5 + this.name_.lines[0].height,
     };
-    // text(this.name, name.x, name.y,
-    //   name.width * this.scale, name.height * this.scale);
+
     this.makeName(name);
+
+    // if (this.desc && this.desc.length) {
+    //   var desc = {
+    //     x: name.x,
+    //     y: name.y + this.name_.getLinesHeight() + 10
+    //   }
+    //   this.makeDesc(desc);
+    // }
 
     if (this.type === Types.tick) {
       image(hourglass_icon, name.x, name.y + name.height + 5,
@@ -98,5 +106,12 @@ class Card extends Clickable {
 
   get name() {
     return this.name_.listify().join(' ');
+  }
+
+  set hover(value) {
+    this.hover_ = value;
+    if (this.parent == game.hand && this.desc) {
+      this.parent.requestDescription = value? this: null;
+    }
   }
 }

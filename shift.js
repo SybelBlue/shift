@@ -1,5 +1,15 @@
+/**
+// TODO: list
+
+// fix selecetion system
+// display text description better
+// finsh game event system
+// make turn system
+
+*/
 function setup() {
-  game.canvas = createCanvas(windowWidth, windowHeight);
+  game.canvas = createCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth), 
+    Math.max(40 + 3.5 * DECK_HEIGHT, windowHeight));
   game.canvas.doubleClicked(autoplay);
 
   textFont(main_font);
@@ -19,7 +29,8 @@ function setup() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth),
+    Math.max(40 + 3.5 * DECK_HEIGHT, windowHeight));
   game.hand.position = Hand.defaultPosition();
   game.hand.dimension = Hand.defaultDimensions();
   game.deck.position = Deck.defaultPosition();
@@ -45,9 +56,9 @@ function draw() {
   game.selectedStack.reverse().forEach(pile => pile.display());
 
   if (!(frameCount % 10)) {
-    // checkHover();
+    checkHover();
   }
-  game.avgFrameRate = ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate()) 
+  game.avgFrameRate = ((game.avgFrameRate || 0) * (frameCount - 1) + getFrameRate())
     / frameCount;
 }
 

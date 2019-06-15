@@ -44,7 +44,7 @@ function checkClick() {
 }
 
 function constructCardFromJSON(json) {
-  var card = new Card(json.name, json.ruleset, json.type);
+  var card = new Card(json.name, json.ruleset, json.type, json.desc.trim());
   card.json_rep = json;
   return card;
 }
