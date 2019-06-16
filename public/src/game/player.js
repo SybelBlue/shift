@@ -1,5 +1,6 @@
 class Player {
-  constructor(data) {
-    this.socketid = data;
+  constructor(id, name) {
+    this.socketid = id;
+    this.username = name;
   }
 }
