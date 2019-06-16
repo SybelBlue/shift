@@ -15,7 +15,7 @@ function setup() {
 
   textFont(main_font);
 
-  game.toast = new Toast();
+  game.toaster = new Toaster();
   game.hand = new Hand(game.clientPlayer);
   game.deck = new Deck();
   game.discard = new Discard();
@@ -68,7 +68,7 @@ function draw() {
     checkHover();
   }
 
-  game.toast.display();
+  game.toaster.display();
 
   updateAvgFrameRate();
 }

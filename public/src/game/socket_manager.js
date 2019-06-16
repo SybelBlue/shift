@@ -4,31 +4,37 @@ function makeSocket() {
   socket.on('new-player', onNewPlayer);
   socket.on('username', onUsername);
   socket.on('players', onPlayersAnnounce);
-  socket.on('draw', onDraw)
+  socket.on('draw', onDraw);
   socket.on('play', onPlay);
+  socket.on('leave', onDisconnect)
 }
 
 const onNewPlayer = (data) => {
-  game.toast.toast(data.username + ' has entered');
+  game.toaster.toast(
+    data.username + ' has entered the game!', color(50, 250, 100));
 }
 
 const onUsername = name => game.username = name;
 
 const onPlayersAnnounce = (data) => {
   var keys = data.clients;
-  var dict = data.idDict;
-  game.players = keys.map(k => new Player(k, dict[k]));
-  game.clientPlayer = game.players.find(p => p.socketid == socket.id);
+  game.players = keys.map(k => new Player(k, data.idDict[k]));
+  game.mainPlayer = game.players.find(p => p.socketid == socket.id);
 }
 
 const onDraw = (data) => {
-  game.debug.log('recieving draw', data);
-  game.toast.toast(data.player.username + ' draws!');
+  game.toaster.toast(data.player.username + ' draws...');
   game.deck.remove(data.card);
 }
 
 const onPlay = (data) => {
   game.debug.log('recieving draw', data);
-  game.toast.toast(data.player.username + ' played ' + data.card);
+  game.toaster.toast(data.player.username + ' played ' + data.card);
   game.deck.remove(data.card);
+}
+
+const onDisconnect = (socketId) => {
+  var out = game.players.find(p => p.socketid === socketId);
+  game.toaster.toast(out.username + " has left the game!", color(250, 100, 50));
+  game.players.splice(game.players.indexOf(out), 1);
 }
