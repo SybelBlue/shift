@@ -27,7 +27,7 @@ class TypedDiscard extends Discard {
       var y = this.y + this.height/2;
       var size = 60;
       textSize(size);
-      textAlign(CENTER)
+      textAlign(CENTER, LEFT);
       var bbox = main_font.textBounds('1', x, y, size);
       text('1', x, y + bbox.h/2);
     }

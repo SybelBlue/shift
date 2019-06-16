@@ -1,4 +1,3 @@
-
 var express = require('express');
 
 var app = express();
@@ -14,12 +13,20 @@ var io = socket(server);
 
 io.sockets.on('connection', newConnection);
 
+// var gameArray = []
+
 function newConnection(socket) {
   console.log('new connection: ' + socket.id);
+  socket.emit('username', Date.now());
+  socket.broadcast.emit('new-player', {socketId: socket.id});
+  var clients = Object.keys(io.sockets.sockets);
+  io.sockets.emit('players', clients);
 
-  socket.on('click', clickDataIn);
+  socket.on('draw', onDraw);
 
-  function clickDataIn(data) {
+  function onDraw(data) {
+    console.log('recieving from ' + socket.id);
     console.log(data);
+    socket.broadcast.emit('draw', data);
   }
 }

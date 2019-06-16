@@ -46,6 +46,13 @@ class Deck extends PlayableField {
     game.debug.log('mooooooore');
   }
 
+  remove(name) {
+    var n = this.cards.length;
+    var card = this.cards.find(c => c.name === name);
+    game.exileField.collect(card);
+    game.debug.log('cards removed: ', n - this.cards.length);
+  }
+
   getRandom() {
     var index = Math.floor(random() * this.cards.length) % this.cards.length;
     var card = this.cards[index];

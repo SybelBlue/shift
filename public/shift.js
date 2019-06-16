@@ -2,26 +2,28 @@
 // TODO: list
 
 // fix selecetion system
-// display text description, bug December '69 too big, triangle follows card
+// fix display text description, bug December '69 too big, triangle follows card
 // finsh game event system
 // make turn system
 
 */
 
 function setup() {
-  socket.on('click', data => game.debug.log('recieved', data));
   game.canvas = createCanvas(Math.max(60 + 5 * DECK_WIDTH, windowWidth),
     Math.max(40 + 3.5 * DECK_HEIGHT, windowHeight));
   game.canvas.doubleClicked(autoplay);
 
   textFont(main_font);
 
-  game.hand = new Hand();
+  game.toast = new Toast();
+  game.hand = new Hand(game.clientPlayer);
   game.deck = new Deck();
   game.discard = new Discard();
   game.drawCardPile = makeNewTypedDiscard(Types.draw);
   game.playCardPile = makeNewTypedDiscard(Types.play);
   game.goalCardPile = makeNewTypedDiscard(Types.end);
+  var exile = createVector(-DECK_WIDTH-10, -this.width);
+  game.exileField = new PlayableField(exile);
 
   game.desktop = new Desktop();
 
@@ -51,6 +53,7 @@ function windowResized() {
 function draw() {
   background(129, 164, 205);
 
+  game.exileField.display();
   game.deck.display();
   game.discard.display();
   game.desktop.display();
@@ -64,6 +67,8 @@ function draw() {
   if (!(frameCount % 10)) {
     checkHover();
   }
+
+  game.toast.display();
 
   updateAvgFrameRate();
 }
