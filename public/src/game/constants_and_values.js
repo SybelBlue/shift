@@ -110,28 +110,3 @@ function preload() {
   mechanical_font = loadFont('/res/mechanical/Mechanical.otf');
   main_font = mechanical_font;
 }
-
-var socket;
-function makeSocket() {
-  socket = io.connect('http://localhost:3000');
-  socket.on('new-player', data => {
-    game.toast.toast(data.username + ' has entered');
-  });
-  socket.on('username', name => game.username = name);
-  socket.on('players', data => {
-    var keys = data.clients;
-    var dict = data.idDict;
-    game.players = keys.map(k => new Player(k, dict[k]));
-    game.clientPlayer = game.players.find(p => p.socketid == socket.id);
-  });
-  socket.on('draw', data => {
-    game.debug.log('recieving draw', data);
-    game.toast.toast(data.player.username + ' draws!');
-    game.deck.remove(data.card);
-  })
-  socket.on('play', data => {
-    game.debug.log('recieving draw', data);
-    game.toast.toast(data.player.username + ' played ' + data.card);
-    game.deck.remove(data.card);
-  })
-}
