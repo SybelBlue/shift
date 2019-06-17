@@ -26,6 +26,7 @@ class Toast extends Clickable {
       }
 
       fill(55, 55, 55, 200);
+      strokeWeight(4)
       this.makeBody();
       noStroke();
       fill(this.textColor);

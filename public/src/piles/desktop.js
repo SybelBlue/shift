@@ -2,10 +2,20 @@ class Desktop extends PlayableField {
   constructor() {
     super(Desktop.defaultPosition(), Desktop.defaultDimensions());
     this.usedRegions = [];
+    this.status = '';
   }
 
   display() {
-    super.display(color(0, 0, 0, 0));
+    textSize(30);
+    fill(55);
+    noStroke();
+    textAlign(LEFT, TOP);
+    var userPrefix = '> ' + game.mainPlayer.username + ':';
+    userPrefix += (Date.now() % 1000 < 500)? '_': '';
+    text(userPrefix + (status.length? ' - ' + status: ''),
+      this.x + 10, this.y + 10);
+      
+    super.display(color(200, 200, 200, 20));
   }
 
   collect(card) {

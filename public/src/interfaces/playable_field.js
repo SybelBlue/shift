@@ -21,7 +21,7 @@ class PlayableField extends Clickable {
     if (card.parent) {
       card.parent.lose(card);
     }
-    
+
     this.cards.push(card);
     this.clean();
     this.rearrange();

@@ -70,7 +70,6 @@ var game = {
       }
     }
   },
-  selectedStack: [],
   allCards: [],
   players: [],
   typedDiscards: [],

@@ -15,7 +15,7 @@ class HandPopupDisplay extends Transformable {
 
     fill(230);
     stroke(55);
-    textAlign(CENTER);
+    textAlign(CENTER, BASELINE);
     textSize(this.fontSize);
     var currentY = this.y + this.height/2;
     for (var line of this.text_) {
