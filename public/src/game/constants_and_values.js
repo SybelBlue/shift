@@ -50,7 +50,8 @@ const CARDS_DRAWN = 'cards_drawn_this_turn',
     TICKS_PLAYED = 'tick_cards_in_play',
     MUST_PLAYS = 'cards_that_are_played_immediately';
 
-const REMOVE_ACTION = 'remove_this_from_action_queue';
+const REMOVE_ACTION = 'remove_this_from_action_queue',
+    HALT_FIRE = 'halt_fire';
 
 var game = {
   debug:  {

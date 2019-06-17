@@ -45,4 +45,11 @@ function newConnection(socket) {
     console.log(Game.takenNames);
     socket.broadcast.emit('leave', socket.id);
   }
+
+  socket.on('next-turn', onNextTurn);
+
+  function onNextTurn(playerName) {
+    console.log(playerName + '\'s turn');
+    socket.broadcast.emit('next-turn', playerName);
+  }
 }

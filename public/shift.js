@@ -1,7 +1,7 @@
 /**
 // TODO: list
 
-// fix selecetion system
+// fix selection system
 // fix display text description, bug December '69 too big, triangle follows card
 // finsh game event system
 // make turn system
@@ -15,6 +15,7 @@ function setup() {
 
   textFont(main_font);
 
+  game.turnManager = new TurnManager(game.players);
   game.toaster = new Toaster();
   game.hand = new Hand(game.mainPlayer);
   game.deck = new Deck();
@@ -31,7 +32,7 @@ function setup() {
   starters.forEach(autoplay);
   game.values.reset();
 
-  game.events.turnStart.fire(null);
+  game.events.turnStart.fire(game.turnManager.currentPlayer);
 }
 
 function windowResized() {

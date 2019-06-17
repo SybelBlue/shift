@@ -110,14 +110,12 @@ class Card extends Clickable {
       text(line, data.x, data.y);
       data.y += main_font.textBounds(line, this.x, data.y, this.fontSize).h + 2;
     }
-
     pop();
   }
 
   set name(value) {
     var result = generateTwoLineBox(value, this.height * 0.8,
       (this.width - COLOR_BAND_WIDTH - 20) * 0.8);
-    console.log(result.lines);
     this.name_ = result.lines;
     this.fontSize = result.fontSize;
   }

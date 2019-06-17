@@ -6,7 +6,8 @@ function makeSocket() {
   socket.on('players', onPlayersAnnounce);
   socket.on('draw', onDraw);
   socket.on('play', onPlay);
-  socket.on('leave', onDisconnect)
+  socket.on('leave', onDisconnect);
+  socket.on('next-turn', onNextTurn);
 }
 
 const onNewPlayer = (data) => {
@@ -43,4 +44,9 @@ const onDisconnect = (socketId) => {
   var out = game.players.find(p => p.socketid === socketId);
   game.toaster.toast(out.username + " has left the game!", color(250, 100, 50));
   game.players.splice(game.players.indexOf(out), 1);
+}
+
+const onNextTurn = (playerName) => {
+  game.debug.log('recieving turn start', playerName);
+  game.turnManager.nextTurn(false);
 }

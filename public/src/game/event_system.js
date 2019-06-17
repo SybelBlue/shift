@@ -33,8 +33,13 @@ class ActionList {
         this.hook(res);
       }
 
-      if (res != REMOVE_ACTION) {
+      if (res !== REMOVE_ACTION) {
         next.push(listener);
+      }
+
+      if (res === HALT_FIRE) {
+        game.debug.log('halted firing!', listener);
+        return;
       }
     }
 
@@ -72,8 +77,16 @@ const defaultOnDraw = function(card, player, ...args) {
   socket.emit('draw', {card: card.name, player: player});
 }
 
-const defaultOnStart = function(player, ...args) {
-  game.debug.log("turn:", player);
+const defaultOnStartTurn = function(player, announce, ...args) {
+  if (announce) {
+    socket.emit('next-turn', player.username);
+  }
+
+  game.values[CARDS_DRAWN] = 0;
+  game.values[CARDS_PLAYED] = 0;
+  game.values[CARDS_DISCARDED] = 0;
+  game.toaster.toast(player.username + '\'s turn!');
+
   while (game.values[CARDS_TO_DRAW]() > game.values[CARDS_DRAWN]) {
     game.deck.draw(this.player);
   }
@@ -82,7 +95,7 @@ const defaultOnStart = function(player, ...args) {
 game.events.draw = new ActionList('draw', defaultOnDraw); //card, player, ...
 game.events.play = new ActionList('play', defaultOnPlay); //card, pile, ...
 
-game.events.turnStart = new ActionList('turnStart', defaultOnStart); // player, ...
+game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // player, announce, ...
 game.events.steal = new ActionList('steal'); // card, fromPlayer, toPlayer, ...
 
 // not in use currently

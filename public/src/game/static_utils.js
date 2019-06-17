@@ -23,6 +23,7 @@ function makeNewTypedDiscard(type) {
   return item;
 }
 
+/**
 class WordLine {
   constructor(maxWidth) {
     this.words = [];
@@ -73,6 +74,7 @@ class WordBody {
     return this.lines.map(line => line.words.join(' '));
   }
 }
+*/
 
 function generateTwoLineBox(text, width, height, startingSize=40) {
   var fontSize = startingSize + 2;
