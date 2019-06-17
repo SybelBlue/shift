@@ -16,8 +16,8 @@ module.exports = class Game {
     'bison', 'dolphin', 'eagle', 'code-monkey', 'shepherd', 'duck', 'bunny',
     'wolf', 'turkey', 'lion', 'piglet', 'snek', 'wrench', 'chicken', 'bolt',
     'tabby', 'corgi', 'hammer', 'pencil', 'dormouse', 'pelican', 'coffee',
-    'mammoth', 'obsolescence', 'caracal', 'ocelot', 'bengal', 'tortoise', 'rhino',
-    'kookaburra', 'puppy']
+    'mammoth', 'obsolescence', 'caracal', 'ocelot', 'bengal', 'tortoise',
+    'rhino', 'kookaburra', 'puppy']
 
     if (!Game.takeNames) {
       Game.takenNames = [];

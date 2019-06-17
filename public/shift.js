@@ -16,7 +16,7 @@ function setup() {
   textFont(main_font);
 
   game.toaster = new Toaster();
-  game.hand = new Hand(game.clientPlayer);
+  game.hand = new Hand(game.mainPlayer);
   game.deck = new Deck();
   game.discard = new Discard();
   game.drawCardPile = makeNewTypedDiscard(Types.draw);

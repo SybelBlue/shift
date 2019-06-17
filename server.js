@@ -41,8 +41,8 @@ function newConnection(socket) {
 
   function onDisconnect(data) {
     console.log(name + ' is leaving');
-    takenNames.splice(takenNames.indexOf(name), 1);
-    console.log(takenNames);
+    Game.takenNames.splice(Game.takenNames.indexOf(name), 1);
+    console.log(Game.takenNames);
     socket.broadcast.emit('leave', socket.id);
   }
 }

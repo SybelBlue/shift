@@ -58,7 +58,7 @@ class Card extends Clickable {
     textAlign(LEFT)
     var name = {
       x: position.x + COLOR_BAND_WIDTH + 10,
-      y: position.y + 5 + this.name_.lines[0].height,
+      y: position.y + 5,
     };
 
     this.makeName(name);
@@ -106,26 +106,24 @@ class Card extends Clickable {
       y: this.x + COLOR_BAND_WIDTH + 20
     }
 
-    for (var line of this.name_.lines) {
-      text(line.stringify(), data.x, data.y);
-      data.y += line.height + 2;
+    for (var line of this.name_) {
+      text(line, data.x, data.y);
+      data.y += main_font.textBounds(line, this.x, data.y, this.fontSize).h + 2;
     }
-    // text(this.name, data.x, data.y,
-    //       (this.height - COLOR_BAND_WIDTH) * 0.8, this.width * 0.8);
+
     pop();
   }
 
   set name(value) {
-    // var result = generateTextBox(value,
-    //   this.width - COLOR_BAND_WIDTH - 20, this.height / 3, 2);
-    var result = generateTextBox(value,
-      this.height * 0.8, (this.width - COLOR_BAND_WIDTH - 20) * 0.8, 2);
+    var result = generateTwoLineBox(value, this.height * 0.8,
+      (this.width - COLOR_BAND_WIDTH - 20) * 0.8);
+    console.log(result.lines);
     this.name_ = result.lines;
     this.fontSize = result.fontSize;
   }
 
   get name() {
-    return this.name_.listify().join(' ');
+    return this.name_.join(' ');
   }
 
   set hover(value) {

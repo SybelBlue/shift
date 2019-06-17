@@ -23,7 +23,13 @@ const onPlayersAnnounce = (data) => {
 }
 
 const onDraw = (data) => {
-  game.toaster.toast(data.player.username + ' draws...');
+  var card = game.allCards.find(c => c.name == data.card);
+  game.debug.log('recieving draw', card);
+  if (card.type === Types.virus) {
+    game.toaster.toast(data.player.username + ' drew ' + card.name);
+  } else {
+      game.toaster.toast(data.player.username + ' draws...');
+  }
   game.deck.remove(data.card);
 }
 

@@ -16,11 +16,11 @@ class HandPopupDisplay extends Transformable {
     fill(230);
     stroke(55);
     textAlign(CENTER);
-    textSize(this.fontSize * 5 / 6);
+    textSize(this.fontSize);
     var currentY = this.y + this.height/2;
-    for (var line of this.text_.lines) {
-      text(line.stringify(), this.x + this.width/2, currentY);
-      currentY += line.height + 2;
+    for (var line of this.text_) {
+      text(line, this.x + this.width/2, currentY);
+      currentY += main_font.textBounds(line, this.x, currentY, this.fontSize).h;
     }
 
     fill(80);
@@ -50,10 +50,13 @@ class HandPopupDisplay extends Transformable {
       this.text_ = null;
       return;
     }
-    var result = generateTextBox(value,
-      this.width * 0.8, this.height * 0.8, 2, 30);
+    var result = generateTwoLineBox(value, this.width, this.height, 30);
     this.text_ = result.lines;
     this.fontSize = result.fontSize;
+  }
+
+  get text() {
+    return this.text_.listify().join(' ');
   }
 
   static defaultPosition() {
