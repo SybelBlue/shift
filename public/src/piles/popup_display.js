@@ -37,7 +37,8 @@ class HandPopupDisplay extends Transformable {
     fill(c)
     stroke(55);
     strokeWeight(4);
-    rect(this.position.x, this.position.y, ...this.dimension, ...CORNER_ROUNDING);
+    rect(this.position.x, this.position.y,
+      ...this.dimension, ...CORNER_ROUNDING);
   }
 
   set item(value) {

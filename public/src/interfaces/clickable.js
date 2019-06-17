@@ -25,22 +25,6 @@ class Clickable extends Transformable {
     return t*t*t*(t * (6*t - 15) + 10);
   }
 
-  set targetPosition(value) {
-    this.targetPosition_ = value;
-  }
-
-  get targetPosition() {
-    return this.targetPosition_;
-  }
-
-  set interactable(value) {
-    this.interactable_ = value;
-  }
-
-  get interactable() {
-    return this.interactable_;
-  }
-
   lerpTo(targetPosition, speed=ANIM_MILLIS) {
     if (this.position == targetPosition) {
       return;
@@ -63,13 +47,25 @@ class Clickable extends Transformable {
     return p5.Vector.add(this.animStart.pos, delta);
   }
 
-  select() { return;  }
-
   testInteract(x=mouseX, y=mouseY) {
     return this.interactable && this.testHit(x, y);
   }
 
-  isCard() {
-    return this.type;
+  set targetPosition(value) {
+    this.targetPosition_ = value;
   }
+
+  get targetPosition() {
+    return this.targetPosition_;
+  }
+
+  set interactable(value) {
+    this.interactable_ = value;
+  }
+
+  get interactable() {
+    return this.interactable_;
+  }
+
+  select() {}
 }

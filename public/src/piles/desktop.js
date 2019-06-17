@@ -11,6 +11,7 @@ class Desktop extends PlayableField {
   collect(card) {
     var contains = this.cards.includes(card);
     super.collect(card);
+
     if (!contains && !this.testHit()) {
       var loc = this.randomLocation();
       game.events.play.fire(card, this);
@@ -27,6 +28,7 @@ class Desktop extends PlayableField {
       this.cards.filter(c => c != card).map(c => c.position)
           .forEach(p => this.markUsed(p.x, p.y));
     }
+
     this.markUsed(loc);
     card.lerpTo(loc);
   }
@@ -36,15 +38,18 @@ class Desktop extends PlayableField {
   randomLocation() {
     var attempts = 0;
     var out;
+
     do {
       out = createVector(this.x + random(10, this.width - CARD_WIDTH - 10),
           this.y + random(10, this.height - CARD_HEIGHT - 10));
       attempts++;
     } while (attempts < 40 && this.inUsedRegion(out.x, out.y));
+
     if (attempts >= 40) {
       game.debug.log('cleared used regions', this.usedRegions);
       this.usedRegions = [];
     }
+
     return out;
   }
 
@@ -56,8 +61,8 @@ class Desktop extends PlayableField {
     var location = createVector(pos.x, pos.y);
     location.x -= CARD_WIDTH;
     location.y -= CARD_HEIGHT;
-    var region = new Transformable(location, [1.75*CARD_WIDTH, 1.75*CARD_HEIGHT]);
-    this.usedRegions.push(region);
+    var area = new Transformable(location, [1.75*CARD_WIDTH, 1.75*CARD_HEIGHT]);
+    this.usedRegions.push(area);
   }
 
   static defaultPosition() {

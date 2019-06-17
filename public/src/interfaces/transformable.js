@@ -8,38 +8,6 @@ class Transformable {
     this.parent_;
   }
 
-  get x() {
-    return this.position.x;
-  }
-
-  get y() {
-    return this.position.y;
-  }
-
-  set x(value) {
-    this.position.x = value;
-  }
-
-  set y(value) {
-    this.position.y = value;
-  }
-
-  get width() {
-    return this.dimension[0];
-  }
-
-  get height() {
-    return this.dimension[1];
-  }
-
-  set width(value) {
-    this.dimension[0] = value;
-  }
-
-  set height(value) {
-    this.dimension[1] = value;
-  }
-
   set parent(value) {
     if (this.parent_) {
       this.localPosition.add(this.parent_.position);
@@ -81,7 +49,35 @@ class Transformable {
         other.overlaps(this, false);
   }
 
-  copyTransformable() {
-    return new Transformable(this.position, this.dimension);
+  get x() {
+    return this.position.x;
+  }
+
+  get y() {
+    return this.position.y;
+  }
+
+  set x(value) {
+    this.position.x = value;
+  }
+
+  set y(value) {
+    this.position.y = value;
+  }
+
+  get width() {
+    return this.dimension[0];
+  }
+
+  get height() {
+    return this.dimension[1];
+  }
+
+  set width(value) {
+    this.dimension[0] = value;
+  }
+
+  set height(value) {
+    this.dimension[1] = value;
   }
 }

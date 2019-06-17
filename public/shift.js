@@ -2,9 +2,10 @@
 // TODO: list
 
 // fix selection system
-// fix display text description, bug December '69 too big, triangle follows card
-// finsh game event system
-// make turn system
+// timer card indicator
+// view discard
+// matchmaking
+// turn end
 
 */
 
@@ -23,8 +24,7 @@ function setup() {
   game.drawCardPile = makeNewTypedDiscard(Types.draw);
   game.playCardPile = makeNewTypedDiscard(Types.play);
   game.goalCardPile = makeNewTypedDiscard(Types.end);
-  var exile = createVector(-DECK_WIDTH-10, -this.width);
-  game.exileField = new PlayableField(exile);
+  game.exileField = new PlayableField(PlayableField.defaultExilePosition());
 
   game.desktop = new Desktop();
 

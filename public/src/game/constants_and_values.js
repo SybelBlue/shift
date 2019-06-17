@@ -101,7 +101,7 @@ const COLOR_BAND_WIDTH = 15;
 const HAND_HEIGHT = CARD_HEIGHT + 20;
 const DECK_WIDTH = CARD_WIDTH + 20, DECK_HEIGHT = HAND_HEIGHT;
 
-var hourglass_icon, graffiti_text_font, brux_font, halt_font, mechanical_font;
+var hourglass_icon, graffiti_text_font, /*brux_font,*/ halt_font, mechanical_font;
 function preload() {
   makeSocket();
   hourglass_icon = loadImage('res/hourglass_icon.png');

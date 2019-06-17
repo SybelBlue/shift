@@ -13,13 +13,15 @@ class PlayableField extends Clickable {
     fill(c)
     stroke(55);
     strokeWeight(4);
-    rect(this.position.x, this.position.y, ...this.dimension, ...CORNER_ROUNDING);
+    rect(this.position.x, this.position.y,
+        ...this.dimension, ...CORNER_ROUNDING);
   }
 
   collect(card) {
     if (card.parent) {
       card.parent.lose(card);
     }
+    
     this.cards.push(card);
     this.clean();
     this.rearrange();
@@ -78,6 +80,9 @@ class PlayableField extends Clickable {
       }
     }
     this.cards = newList.reverse();
+  }
 
+  static defaultExilePosition() {
+    return createVector(-DECK_WIDTH-10, -this.width);
   }
 }

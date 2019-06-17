@@ -8,7 +8,7 @@ class Card extends Clickable {
     this.type = type;
     this.name = name;
     this.desc = type.desc + ' ' + desc;
-    this.jiggle = {t: 150, s: 1.5, x: 10};
+    this.jiggle = {t: 150, revs: 1.5, deltax: 10};
 
     game.allCards.push(this);
   }
@@ -37,9 +37,8 @@ class Card extends Clickable {
     var position = this.position.copy();
 
     if (this.jiggle.start != null) {
-      var xDisp = this.jiggle.x * Math.sin(
-        TAU * this.jiggle.s * (Date.now() - this.jiggle.start) / this.jiggle.t
-      );
+      var angle = TAU * (Date.now() - this.jiggle.start) / this.jiggle.t;
+      var xDisp = this.jiggle.deltax * Math.sin(angle * this.jiggle.revs);
       position.x += xDisp;
       if (Date.now() - this.jiggle.start > this.jiggle.t) {
         this.jiggle.start = null;
@@ -64,8 +63,10 @@ class Card extends Clickable {
     this.makeName(name);
 
     if (this.type === Types.tick) {
-      image(hourglass_icon, name.x, name.y + name.height + 5,
-          name.width * this.scale, (this.height - name.height - 10) * this.scale,
+      image(hourglass_icon,
+          name.x, name.y + name.height + 5,
+          name.width * this.scale,
+          (this.height - name.height - 10) * this.scale,
           130, 30, 512 - 2 * 130, 512 - 2 * 30);
     }
   }

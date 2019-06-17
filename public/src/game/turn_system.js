@@ -12,14 +12,13 @@ class TurnManager {
     return nextPlayer;
   }
 
-  nextPlayerPeek() {
+  get nextPlayer() {
     var index = (this.current_ + 1) % game.players.length;
     return game.players[index];
   }
 
-  previousPlayerPeek() {
-    var index = (this.current_ + game.players.length - 1)
-        % game.players.length;
+  get previousPlayer() {
+    var index = (this.current_ + game.players.length - 1) % game.players.length;
     return game.players[index];
   }
 
