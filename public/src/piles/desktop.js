@@ -2,20 +2,68 @@ class Desktop extends PlayableField {
   constructor() {
     super(Desktop.defaultPosition(), Desktop.defaultDimensions());
     this.usedRegions = [];
-    this.status = '';
+    this.fontSize = 30;
+    this.actionStrings = [];
   }
 
   display() {
-    textSize(30);
+    this.displayText();
+
+    super.display(color(200, 200, 200, 20));
+  }
+
+  displayText() {
     fill(55);
     noStroke();
     textAlign(LEFT, TOP);
-    var userPrefix = '> ' + game.mainPlayer.username + ':';
-    userPrefix += (Date.now() % 1000 < 500)? '_': '';
-    text(userPrefix + (status.length? ' - ' + status: ''),
-      this.x + 10, this.y + 10);
-      
-    super.display(color(200, 200, 200, 20));
+    var userString = 'shift\\' + game.mainPlayer.username + '> ';
+    if (game.turnManager.isMainTurn()) {
+      userString += (Date.now() % 1000 < 500)? '_': '';
+    } else {
+      userString += 'waiting for ' + game.turnManager.currentPlayer.username;
+      userString += '... ['
+      switch (Math.floor((Date.now() % 2000) / 500)) {
+        case 0:
+          userString += '|';
+          break;
+        case 1:
+          userString += '/';
+          break;
+        case 2:
+          userString += '-';
+          break;
+        case 3:
+          userString += '\\';
+          break;
+      }
+      userString += ']'
+    }
+
+    var bbox;
+    while ((bbox = main_font.textBounds(userString, 0, 0, this.fontSize)).w
+        > 0.75 * this.width) {
+      this.fontSize--;
+    }
+
+    this.startingH = !this.startingH || abs(this.startingH - bbox.h) > 15?
+        bbox.h: this.startingH;
+    textSize(this.fontSize);
+
+    text(userString, this.x + 10, this.y + 10);
+
+    var currentH = 10 + this.startingH + 5;
+    for (var str of this.actionStrings.slice(0).reverse()) {
+      bbox = main_font.textBounds(str, 0, 0, this.fontSize);
+      if (currentH + bbox.h > this.height - 10) {
+        break;
+      }
+      text(str, this.x + 10, this.y + currentH);
+      currentH += bbox.h + 5;
+    }
+  }
+
+  pushActionString(player, action) {
+    this.actionStrings.push('shift\\' + player.username + '> ' + action);
   }
 
   collect(card) {
@@ -24,7 +72,7 @@ class Desktop extends PlayableField {
 
     if (!contains && !this.testHit()) {
       var loc = this.randomLocation();
-      game.events.play.fire(card, this);
+      game.events.play.fire(game.mainPlayer, card, this);
     } else {
       var upperX = this.x + this.width - 10 - CARD_WIDTH/2;
       var lowerX = this.x + 10 + CARD_WIDTH/2;

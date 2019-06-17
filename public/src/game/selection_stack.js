@@ -14,7 +14,7 @@ class SelectionStack {
         return;
       case SelectionStack.SINGLE_CLASS:
         var protoName = item.constructor.name;
-        this.items = this.items.filter(obj => obj.constructor.name !== protoName);
+        this.items = this.items.filter(o => o.constructor.name !== protoName);
         this.items.push(item);
         return;
     }

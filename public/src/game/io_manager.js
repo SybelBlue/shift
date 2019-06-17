@@ -9,14 +9,17 @@ function mouseClicked(e) {
 
 function checkHover() {
   var object = objectUnderCursor();
+  object = object instanceof Card && object;
 
   if (object != game.lastHovered && game.lastHovered) {
     game.lastHovered.hover = false;
   }
 
-  if (object instanceof Card) {
+  if (object) {
     object.hover = true;
     game.lastHovered = object;
+  } else {
+    game.lastHovered = null;
   }
 }
 

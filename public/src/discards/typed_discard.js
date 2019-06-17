@@ -17,7 +17,7 @@ class TypedDiscard extends Discard {
 
   display() {
     super.display(this.type.color);
-    if (this.defaultValue) {
+    if (this.defaultValue && !this.cards.length) {
       noStroke();
       fill(255);
       ellipse(this.x + this.width/2, this.y + this.height/2,

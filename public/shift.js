@@ -75,6 +75,10 @@ function draw() {
 
   game.toaster.display();
 
+  if (game.lastHovered) {
+    game.lastHovered.display();
+  }
+
   updateAvgFrameRate();
 }
 

@@ -7,7 +7,7 @@ class Card extends Clickable {
 
     this.type = type;
     this.name = name;
-    this.desc = type.desc + ' ' + desc;
+    this.desc = '(' + type.name + ' card: ' + type.desc + ') ' + desc;
     this.jiggle = {t: 150, revs: 1.5, deltax: 10};
 
     game.allCards.push(this);
@@ -86,7 +86,7 @@ class Card extends Clickable {
   }
 
   canDiscard() {
-    return Types.tick !== this.type && Types.virus !== this.type;
+    return this.type === Types.script;
   }
 
   makeBody(position=this.position) {

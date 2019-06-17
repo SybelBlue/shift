@@ -47,23 +47,30 @@ class ActionList {
   }
 }
 
-const defaultOnPlay = function(card, pile, ...args) {
+const defaultOnPlay = function(player, card, pile, ...args) {
   game.values[CARDS_PLAYED]++;
   game.debug.log('defaultOnPlay: cards played: ' + game.values[CARDS_PLAYED],
       arguments);
 
+  game.desktop.pushActionString(player, 'run ' + card.name);
   // if (card.ruleset.onEnter) ...
 }
 
-const defaultOnDiscard = function(card, pile, ...args) {
-  game.events.play.fire(card, pile, ...args);
+const defaultOnDiscard = function(player, card, pile, ...args) {
+  game.events.play.fire(player, card, pile, ...args);
   game.values[CARDS_DISCARDED]++;
   game.debug.log('defaultOnDiscard: cards discarded: ' +
         game.values[CARDS_DISCARDED], arguments);
+
+  game.desktop.pushActionString(player, 'run ' + card.name);
 }
 
-const defaultOnDraw = function(card, player, ...args) {
+const defaultOnDraw = function(player, card, ...args) {
+  socket.emit('draw', {card: card.name, player: player});
+  game.desktop.pushActionString(player, 'draw');
+
   if (game.values[MUST_PLAYS].includes(card.type)) {
+    game.desktop.pushActionString(player, 'run ' + card.name);
     game.debug.log('forced play', card);
     game.values[CARDS_PLAYED]--;
     autoplay(card);
@@ -73,8 +80,6 @@ const defaultOnDraw = function(card, player, ...args) {
   game.values[CARDS_DRAWN]++;
   game.debug.log('defaultOnDraw: cards drawn: ' + game.values[CARDS_DRAWN],
       arguments);
-
-  socket.emit('draw', {card: card.name, player: player});
 }
 
 const defaultOnStartTurn = function(player, announce, ...args) {
@@ -86,18 +91,19 @@ const defaultOnStartTurn = function(player, announce, ...args) {
   game.values[CARDS_PLAYED] = 0;
   game.values[CARDS_DISCARDED] = 0;
   game.toaster.toast(player.username + '\'s turn!');
+  game.desktop.actionStrings = [];
 
   while (game.values[CARDS_TO_DRAW]() > game.values[CARDS_DRAWN]) {
     game.deck.draw(this.player);
   }
 }
 
-game.events.draw = new ActionList('draw', defaultOnDraw); //card, player, ...
-game.events.play = new ActionList('play', defaultOnPlay); //card, pile, ...
+game.events.draw = new ActionList('draw', defaultOnDraw); // player, card, ...
+game.events.play = new ActionList('play', defaultOnPlay); // player, card, pile, ...
 
 game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // player, announce, ...
 game.events.steal = new ActionList('steal'); // card, fromPlayer, toPlayer, ...
 
 // not in use currently
-game.events.discard = new ActionList('game.game.discard', defaultOnDiscard); //card, pile, ...
-game.events.turnEnd = new ActionList('turnEnd'); //card, pile, ...
+game.events.discard = new ActionList('discard', defaultOnDiscard); //player, card, pile, ...
+game.events.turnEnd = new ActionList('turnEnd'); // player, card, pile, ...

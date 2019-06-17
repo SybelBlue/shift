@@ -8,7 +8,7 @@ class Hand extends PlayableField {
 
   collect(card) {
     super.collect(card);
-    game.events.draw.fire(card, this.player);
+    game.events.draw.fire(this.player, card);
     card.interactable = true;
     card.visible = true;
     card.flipped = true;

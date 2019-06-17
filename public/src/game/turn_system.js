@@ -7,9 +7,22 @@ class TurnManager {
     this.current_++;
     this.current_ %= game.players.length;
     var nextPlayer = this.currentPlayer;
-    game.debug.log('player', [this.current_, nextPlayer])
+    game.debug.log('nextturn', [this.current_, nextPlayer])
     game.events.turnStart.fire(nextPlayer, announce);
     return nextPlayer;
+  }
+
+  /** main player's turn? */
+  isMainTurn() {
+    return this.currentPlayer === game.mainPlayer;
+  }
+
+  removePlayer(player) {
+    var index = game.players.indexOf(player);
+    if (index < this.current_) {
+      this.current_--;
+    }
+    game.players.splice(index, 1);
   }
 
   get nextPlayer() {

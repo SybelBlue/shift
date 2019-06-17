@@ -17,12 +17,12 @@ const Types = Object.freeze({
   end: {
       name: 'end',
       color: [50, 200, 50], // green
-      desc: 'You win the game'
+      desc: 'You win the game...'
     },
   tick: {
-      name: 'time',
+      name: 'tick',
       color: [117, 221, 221], //teal
-      desc: 'Tick tock! (This card has no use on its own.)'
+      desc: 'Tick tock!'
     },
   script: {
       name: 'script',

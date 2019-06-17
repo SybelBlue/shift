@@ -15,7 +15,7 @@ class Discard extends PlayableField {
     card.visible = true;
     card.interactable = false;
     if (fire) {
-      game.events.discard.fire(card, this);
+      game.events.discard.fire(game.mainPlayer, card, this);
     }
   }
 
