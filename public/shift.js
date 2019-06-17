@@ -1,11 +1,11 @@
 /**
 // TODO: list
 
-// fix selection system
 // timer card indicator
 // view discard
 // matchmaking
 // turn end
+// async deck sync
 
 */
 
@@ -16,6 +16,7 @@ function setup() {
 
   textFont(main_font);
 
+  game.selectedStack = new SelectionStack();
   game.turnManager = new TurnManager(game.players);
   game.toaster = new Toaster();
   game.hand = new Hand(game.mainPlayer);
@@ -63,7 +64,7 @@ function draw() {
   game.typedDiscards.forEach(pile => pile.display());
   game.allCards.filter(card => card.visible && !card.parent)
     .forEach(card => card.display());
-  game.selectedStack.reverse().forEach(pile => pile.display());
+  game.selectedStack.reverse().forEach(item => item.display());
 
   if (!(frameCount % 10)) {
     checkHover();

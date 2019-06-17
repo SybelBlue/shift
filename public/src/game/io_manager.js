@@ -59,7 +59,7 @@ function checkClick() {
   var next = objectUnderCursor();
   if (next && next.interactable) {
     if (game.selectedStack.includes(next)) {
-      game.selectedStack.splice(next);
+      game.selectedStack.remove(next);
     } else {
       game.selectedStack.push(next);
       next.select();

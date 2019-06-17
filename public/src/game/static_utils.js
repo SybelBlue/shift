@@ -23,59 +23,6 @@ function makeNewTypedDiscard(type) {
   return item;
 }
 
-/**
-class WordLine {
-  constructor(maxWidth) {
-    this.words = [];
-    this.height = 0;
-    this.width = 0;
-    this.maxWidth = maxWidth;
-  }
-
-  addWord(word, width, height) {
-    if (this.width + width > this.maxWidth) {
-      return false;
-    }
-    this.words.push(word);
-    this.height = Math.max(this.height, height);
-    this.width += width;
-    return true;
-  }
-
-  isEmpty() {
-    return this.words.length == 0;
-  }
-
-  stringify() {
-    return this.words.join(' ');
-  }
-}
-
-class WordBody {
-  constructor(maxHeight, btwnLine=0) {
-    this.lines = [];
-    this.maxHeight = height;
-    this.margin = btwnLine;
-  }
-
-  push(wordLine) {
-    if (this.getLinesHeight() + wordLine.height > this.maxHeight) {
-      return false;
-    }
-    this.lines.push(wordLine);
-    return true;
-  }
-
-  getLinesHeight() {
-    return this.lines.map(line => line.height + this.margin).sum() - this.margin;
-  }
-
-  listify() {
-    return this.lines.map(line => line.words.join(' '));
-  }
-}
-*/
-
 function generateTwoLineBox(text, width, height, startingSize=40) {
   var fontSize = startingSize + 2;
   var stop = text.length / 2;
