@@ -6,6 +6,10 @@ Array.prototype.sum = function() {
   return this.reduce(sum, 0);
 }
 
+function getCardFromName(name) {
+  return game.allCards.find(c => c.name == name);
+}
+
 function makeNewTypedDiscard(type) {
   function getNewTypedDiscardPosition() {
     function sumPile(prop) {

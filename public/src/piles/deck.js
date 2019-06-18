@@ -27,12 +27,12 @@ class Deck extends PlayableField {
     this.draw();
   }
 
-  draw(destPlayer=null) { // for later use
+  draw() {
     if (!this.cards.length) {
       this.refresh();
     }
     var card = this.getRandom();
-    game.hand.collect(card); // fix here
+    game.hand.collect(card);
   }
 
   refresh() {

@@ -7,7 +7,7 @@ def replace(dict, name, newName):
     del dict[name]
 
 
-with open('C:/Users/lbcdn/Documents/Processing/shift/res/Cards.csv', newline='') as csv_file:
+with open('./Cards.csv', newline='') as csv_file:
     dict_reader = DictReader(csv_file)
     for row in dict_reader:
         if row['Deck'] != 'White':

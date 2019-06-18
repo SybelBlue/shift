@@ -48,7 +48,8 @@ const CARDS_DRAWN = 'cards_drawn_this_turn',
     CARDS_TO_PLAY = 'cards_to_play_this_turn',
     CARDS_DISCARDED = 'cards_discarded_this_turn',
     TICKS_PLAYED = 'tick_cards_in_play',
-    MUST_PLAYS = 'cards_that_are_played_immediately';
+    MUST_PLAYS = 'cards_that_are_played_immediately',
+    OPTIONALS_PLAYED = 'opt_actions_played_this_turn';
 
 const REMOVE_ACTION = 'remove_this_from_action_queue',
     HALT_FIRE = 'halt_fire';
@@ -83,6 +84,7 @@ var game = {
       game.values[CARDS_DISCARDED] = 0;
       game.values[TICKS_PLAYED] = 0;
       game.values[MUST_PLAYS] = [Types.virus];
+      game.values[OPTIONALS_PLAYED] = 0;
       game.debug.log('game values reset', game.values);
     }
   }

@@ -25,24 +25,19 @@ const onPlayersAnnounce = (data) => {
 }
 
 const onDraw = (data) => {
-  var card = game.allCards.find(c => c.name == data.card);
+  var card = getCardFromName(data.card);
   game.debug.log('recieving draw: ' + data.card, card);
-  if (card.type === Types.virus) {
-    game.toaster.toast(data.player.username + ' drew ' + card.name);
-    game.desktop.pushActionString(data.player, 'draw');
-    game.desktop.pushActionString(data.player, 'run ' + card.name);
-  } else {
-      game.toaster.toast(data.player.username + ' draws...');
-      game.desktop.pushActionString(data.player, 'draw');
-  }
+  game.desktop.pushActionString(data.player, 'draw');
   game.deck.remove(data.card);
 }
 
 const onPlay = (data) => {
   game.debug.log('recieving draw', data);
-  game.toaster.toast(data.player.username + ' played ' + data.card);
-  game.desktop.pushActionString(data.player, 'plays ' + data.card);
-  game.deck.remove(data.card);
+  game.desktop.pushPlayString(data.player, getCardFromName(data.card));
+  var card = getCardFromName(data.card);
+  if (card.publicPlay()) {
+    autoplay(card, true, false);
+  }
 }
 
 const onDisconnect = (socketId) => {

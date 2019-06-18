@@ -18,6 +18,10 @@ class PlayableField extends Clickable {
   }
 
   collect(card) {
+    if (!card) {
+      return;
+    }
+
     if (card.parent) {
       card.parent.lose(card);
     }
@@ -83,6 +87,6 @@ class PlayableField extends Clickable {
   }
 
   static defaultExilePosition() {
-    return createVector(-DECK_WIDTH-10, -this.width);
+    return createVector(width/2, -DECK_HEIGHT-10);
   }
 }

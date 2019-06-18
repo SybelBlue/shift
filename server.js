@@ -52,4 +52,11 @@ function newConnection(socket) {
     console.log(playerName + '\'s turn');
     socket.broadcast.emit('next-turn', playerName);
   }
+
+  socket.on('play', onPlay);
+
+  function onPlay(obj) {
+    console.log(obj.player.username + ' plays ' + obj.card);
+    socket.broadcast.emit('play', obj);
+  }
 }

@@ -1,12 +1,11 @@
 /**
 // TODO: list
 
-// timer card indicator
 // view discard
 // matchmaking
-// turn end
 // async deck sync
 // ruleset encoding scheme
+// task manager: timer card indicator
 
 */
 
@@ -37,6 +36,11 @@ function setup() {
   game.toaster.toast('You, ' + game.mainPlayer.username +
       ', have joined the game!');
   game.events.turnStart.fire(game.turnManager.currentPlayer);
+
+  game.deck.draw();
+  game.deck.draw();
+  game.deck.draw();
+  game.deck.draw();
 }
 
 function windowResized() {
@@ -82,7 +86,7 @@ function draw() {
   updateAvgFrameRate();
 }
 
-function autoplay(e=undefined) {
+function autoplay(e=undefined, force=false, announce=true) {
   var card = e;
   if (!(card instanceof Card)) {
     card = objectUnderCursor();
@@ -93,23 +97,33 @@ function autoplay(e=undefined) {
 
   game.debug.log('autoplaying', e);
 
-  if (game.values[CARDS_PLAYED] >= game.values[CARDS_TO_PLAY]()) {
+  if (!force && game.values[CARDS_PLAYED] >= game.values[CARDS_TO_PLAY]()) {
     game.debug.log('reject, too many cards played');
     card.shake();
     return;
   }
 
+  if (game.mainPlayer !== game.turnManager.currentPlayer) {
+    if (!force) {
+      game.debug.log('reject, not your turn!');
+      card.shake();
+      return;
+    } else {
+      game.values[CARDS_PLAYED]--;
+    }
+  }
+
   var candidates = game.typedDiscards.filter(pile => pile.type === card.type);
   switch (candidates.length) {
     case 1:
-      candidates[0].collect(card);
+      candidates[0].collect(card, true, announce);
       return;
     case 0:
       if (card.canDiscard()) {
-        card.discard();
+        card.discard(announce);
         return;
       } else {
-        game.desktop.collect(card);
+        game.desktop.collect(card, announce);
         return;
       }
   }

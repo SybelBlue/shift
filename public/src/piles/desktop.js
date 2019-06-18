@@ -66,13 +66,20 @@ class Desktop extends PlayableField {
     this.actionStrings.push('shift\\' + player.username + '> ' + action);
   }
 
-  collect(card) {
+  pushPlayString(player, card) {
+    this.pushActionString(player, (card.type != Types.command? 'run ': '') +
+        card.name);
+  }
+
+  collect(card, announce=true) {
     var contains = this.cards.includes(card);
     super.collect(card);
-
+    var loc;
     if (!contains && !this.testHit()) {
-      var loc = this.randomLocation();
-      game.events.play.fire(game.mainPlayer, card, this);
+      loc = this.randomLocation();
+      if (announce) {
+        game.events.play.fire(game.mainPlayer, card, this);
+      }
     } else {
       var upperX = this.x + this.width - 10 - CARD_WIDTH/2;
       var lowerX = this.x + 10 + CARD_WIDTH/2;
@@ -81,7 +88,7 @@ class Desktop extends PlayableField {
       var x = Math.max(lowerX, Math.min(mouseX, upperX));
       var y = Math.max(lowerY, Math.min(mouseY, upperY));
       rect(lowerX, lowerY, upperX-lowerX, upperY-lowerY);
-      var loc = createVector(x - CARD_WIDTH/2, y - CARD_HEIGHT/2);
+      loc = createVector(x - CARD_WIDTH/2, y - CARD_HEIGHT/2);
       this.usedRegions = [];
       this.cards.filter(c => c != card).map(c => c.position)
           .forEach(p => this.markUsed(p.x, p.y));

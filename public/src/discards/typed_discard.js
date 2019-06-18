@@ -6,8 +6,8 @@ class TypedDiscard extends Discard {
     this.defaultValue = defaultValue;
   }
 
-  collect(card, flipped=true) {
-    super.collect(card, flipped);
+  collect(card, flipped=true, fire=true) {
+    super.collect(card, flipped, fire);
     while (this.cards.length > this.limit) {
       this.cards[0].discard(false);
     }

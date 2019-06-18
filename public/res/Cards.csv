@@ -1,151 +1,151 @@
-Deck,Name,Desc,Type,"Ticks Required [7, 9]",Rules
-White,Keyboard & Mouse,,program,2,-
-White,Antivirus.exe,,program,2,"On play, remove virus"
-White,CPU Clock,,program,,"On turn, Fetch tick card"
-White,Werd Editor,,program,,
-White,Browser,,program,,"Each turn, you must move a virus card from the discard to the deck and shuffle."
-White,Registry,,program,7,
-White,Task Manager,,program,8,"On turn, steal program, virus if none"
-White,Encryption,,program,,"While you have this card, your cards cannot be stolen or transferred."
-White,Bad Link!,,virus,,"On play, lose two cards. You may choose to add this "
-White,Power Outage!,,virus,,"Tick cards can't be played, can't win"
-White,Misplaced Juice!,,virus,,"Discard hand, this card cannot be stolen or transferred."
-White,Full Memory!,,virus,,Your hand limit is 4
-White,Data Mining,,script,,The next player draws from the top of the discard.
-White,Timely Draw,,script,,Draw equal to timers played
-White,Disk Cleanup,,script,,Everyone discards down to 5 cards
-White,Quit,,script,,"Discard any command, program, or virus card"
-White,Force Exit,,script,,You may move up to two program or virus cards between players
-White,Screen Sharing,,script,,Move any two cards from player to player
-White,Networking,,script,,"Gather all programs and virus, shuffle, redistribute equally"
-White,December '69,,script,,"Discard all tick cards in play, draw and discard until tick card comes up "
-White,Suite Deal,,end,,If you have 7 or more programs in play
-White,Advanced User,,end,,If you have Registry and Task Manager
-White,"Off, Then On",,end,,If you loose all cards in your hand then draw again
-White,A Millenial's Touch,,end,,"If you have two of Werd Editor, Browser, Full Memory!"
-White,Glass Half Full,,end,,If you have Misplaced Juice! and Full Memory!
-White,Befriend a Prince,,end,,If you have Bad Link! and Antivirus.exe or Browser
-White,"Faster, Hotter, Better",,end,,"If you have Overclocked, any program and GPU Accelerated is in play"
-White,Upgrade,,end,7,If you have three viruses or more
-White,Firewall,,end,,If you have three viruses or more and Antivirus.exe
-White,A Regular Hacker,,end,,If there are six commands in play and you add a seventh
-White,App Store 4,,draw,,Draw 4 cards per turn
-White,App Store 3,,draw,,Draw 3 cards per turn
-White,Multitasking 3,,play,,Play 3 cards per turn
-White,Multitasking 2,,play,,Play 2 cards per turn
-White,Child's Play,,command,,All scripts and ends that are drawn must be played
-White,Recycle Bin,,command,,Discard two cards to draw from the top of the discard
-White,Bytes and Pieces,,command,,"Draw 8 cards, then give a card to each player from your hand"
-White,Just a Nibble,,command,,Hand limit = 4
-White,Stock Wares,,command,,Program/virus limit = 4
-White,Quarantine,,command,,Discard two cards to move a virus from player to player
-White,Copy/Paste,,command,,"Make a copy of a card, and give it to another player"
-White,Overclocked,,command,,Draw an additional card for each timer in play
-White,GPU Accelerated,,command,,"Draw an additional card for each program you have, discard an additional card for each virus you have."
-White,Ask Your Grandson,,command,,You may let a player steal a random card from your hand to draw two cards
-White,Clear Command Line,,command,,"Discard all rules cards, including this one."
-White,Public Network,,command,,Play with hands open
-White,Tick!,,time,0,
-White,Tick!,,time,0,
-White,Tick!,,time,0,
-White,Tick!,,time,0,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Blue,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
-Red,,,,,
+Deck,id,Name,Desc,Type,"Ticks Required [7, 9]",Rules
+White,0,Keyboard & Mouse,,program,2,
+White,1,Antivirus.exe,,program,2,"On play, remove virus"
+White,2,CPU Clock,,program,,"On turn, Fetch tick card"
+White,3,Werd Editor,,program,,
+White,4,Browser,,program,,"Each turn, you must move a virus card from the discard to the deck and shuffle."
+White,5,Registry,,program,7,
+White,6,Task Manager,,program,8,"On turn, steal program, virus if none"
+White,7,Encryption,,program,,"While you have this card, your cards cannot be stolen or transferred."
+White,8,Bad Link!,,virus,,"On play, lose two cards. You may choose to add this "
+White,9,Power Outage!,,virus,,"Tick cards can't be played, can't win"
+White,10,Misplaced Juice!,,virus,,"Discard hand, this card cannot be stolen or transferred."
+White,11,Full Memory!,,virus,,Your hand limit is 4
+White,12,Data Mining,,script,,The next player draws from the top of the discard.
+White,13,Timely Draw,,script,,Draw equal to timers played
+White,14,Disk Cleanup,,script,,Everyone discards down to 5 cards
+White,15,Quit,,script,,"Discard any command, program, or virus card"
+White,16,Force Exit,,script,,You may move up to two program or virus cards between players
+White,17,Screen Sharing,,script,,Move any two cards from player to player
+White,18,Networking,,script,,"Gather all programs and virus, shuffle, redistribute equally"
+White,19,December '69,,script,,"Discard all tick cards in play, draw and discard until tick card comes up "
+White,20,Suite Deal,,end,,If you have 7 or more programs in play
+White,21,Advanced User,,end,,If you have Registry and Task Manager
+White,22,"Off, Then On",,end,,If you loose all cards in your hand then draw again
+White,23,A Millenial's Touch,,end,,"If you have two of Werd Editor, Browser, Full Memory!"
+White,24,Glass Half Full,,end,,If you have Misplaced Juice! and Full Memory!
+White,25,Befriend a Prince,,end,,If you have Bad Link! and Antivirus.exe or Browser
+White,26,"Faster, Hotter, Better",,end,,"If you have Overclocked, any program and GPU Accelerated is in play"
+White,27,Upgrade,,end,7,If you have three viruses or more
+White,28,Firewall,,end,,If you have three viruses or more and Antivirus.exe
+White,29,A Regular Hacker,,end,,If there are six commands in play and you add a seventh
+White,30,App Store 4,,draw,,Draw 4 cards per turn
+White,31,App Store 3,,draw,,Draw 3 cards per turn
+White,32,Multitasking 3,,play,,Play 3 cards per turn
+White,33,Multitasking 2,,play,,Play 2 cards per turn
+White,34,Child's Play,,command,,All scripts and ends that are drawn must be played
+White,35,Recycle Bin,,command,,Discard two cards to draw from the top of the discard
+White,36,Bytes and Pieces,,command,,"Draw 8 cards, then give a card to each player from your hand"
+White,37,Just a Nibble,,command,,All players' hand limit is 4.
+White,38,Stock Wares,,command,,All players' are allowed up to 4 programs and viruses.
+White,39,Quarantine,,command,,Discard two cards to move a virus from player to player
+White,40,Copy/Paste,,command,,"Make a copy of a card, and give it to another player"
+White,41,Overclocked,,command,,Draw an additional card for each timer in play
+White,42,GPU Accelerated,,command,,"Draw an additional card for each program you have, discard an additional card for each virus you have."
+White,43,Ask Your Grandson,,command,,You may let a player steal a random card from your hand to draw two cards
+White,44,Clear Command Line,,command,,"Discard all active command, play, and draw cards, including this one."
+White,45,Public Network,,command,,Play with hands open
+White,46,Tick!,,tick,0,
+White,47,Tick!,,tick,0,
+White,48,Tick!,,tick,0,
+White,49,Tick!,,tick,0,
+Blue,50,,,,,
+Blue,51,,,,,
+Blue,52,,,,,
+Blue,53,,,,,
+Blue,54,,,,,
+Blue,55,,,,,
+Blue,56,,,,,
+Blue,57,,,,,
+Blue,58,,,,,
+Blue,59,,,,,
+Blue,60,,,,,
+Blue,61,,,,,
+Blue,62,,,,,
+Blue,63,,,,,
+Blue,64,,,,,
+Blue,65,,,,,
+Blue,66,,,,,
+Blue,67,,,,,
+Blue,68,,,,,
+Blue,69,,,,,
+Blue,70,,,,,
+Blue,71,,,,,
+Blue,72,,,,,
+Blue,73,,,,,
+Blue,74,,,,,
+Blue,75,,,,,
+Blue,76,,,,,
+Blue,77,,,,,
+Blue,78,,,,,
+Blue,79,,,,,
+Blue,80,,,,,
+Blue,81,,,,,
+Blue,82,,,,,
+Blue,83,,,,,
+Blue,84,,,,,
+Blue,85,,,,,
+Blue,86,,,,,
+Blue,87,,,,,
+Blue,88,,,,,
+Blue,89,,,,,
+Blue,90,,,,,
+Blue,91,,,,,
+Blue,92,,,,,
+Blue,93,,,,,
+Blue,94,,,,,
+Blue,95,,,,,
+Blue,96,,,,,
+Blue,97,,,,,
+Blue,98,,,,,
+Blue,99,,,,,
+Red,100,,,,,
+Red,101,,,,,
+Red,102,,,,,
+Red,103,,,,,
+Red,104,,,,,
+Red,105,,,,,
+Red,106,,,,,
+Red,107,,,,,
+Red,108,,,,,
+Red,109,,,,,
+Red,110,,,,,
+Red,111,,,,,
+Red,112,,,,,
+Red,113,,,,,
+Red,114,,,,,
+Red,115,,,,,
+Red,116,,,,,
+Red,117,,,,,
+Red,118,,,,,
+Red,119,,,,,
+Red,120,,,,,
+Red,121,,,,,
+Red,122,,,,,
+Red,123,,,,,
+Red,124,,,,,
+Red,125,,,,,
+Red,126,,,,,
+Red,127,,,,,
+Red,128,,,,,
+Red,129,,,,,
+Red,130,,,,,
+Red,131,,,,,
+Red,132,,,,,
+Red,133,,,,,
+Red,134,,,,,
+Red,135,,,,,
+Red,136,,,,,
+Red,137,,,,,
+Red,138,,,,,
+Red,139,,,,,
+Red,140,,,,,
+Red,141,,,,,
+Red,142,,,,,
+Red,143,,,,,
+Red,144,,,,,
+Red,145,,,,,
+Red,146,,,,,
+Red,147,,,,,
+Red,148,,,,,
+Red,149,,,,,

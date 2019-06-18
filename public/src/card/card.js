@@ -89,6 +89,11 @@ class Card extends Clickable {
     return this.type === Types.script;
   }
 
+  publicPlay() {
+    return [Types.play, Types.draw, Types.end, Types.script]
+        .includes(this.type);
+  }
+
   makeBody(position=this.position) {
     rect(position.x, position.y,
          ...this.dimension.map(n => n * this.scale),

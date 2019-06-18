@@ -52,8 +52,12 @@ const defaultOnPlay = function(player, card, pile, ...args) {
   game.debug.log('defaultOnPlay: cards played: ' + game.values[CARDS_PLAYED],
       arguments);
 
-  game.desktop.pushActionString(player, 'run ' + card.name);
+  game.desktop.pushPlayString(player, card);
+
+  socket.emit('play', {player: player, card: card.name})
   // if (card.ruleset.onEnter) ...
+
+  game.turnManager.turnAutoplay();
 }
 
 const defaultOnDiscard = function(player, card, pile, ...args) {
@@ -61,8 +65,6 @@ const defaultOnDiscard = function(player, card, pile, ...args) {
   game.values[CARDS_DISCARDED]++;
   game.debug.log('defaultOnDiscard: cards discarded: ' +
         game.values[CARDS_DISCARDED], arguments);
-
-  game.desktop.pushActionString(player, 'run ' + card.name);
 }
 
 const defaultOnDraw = function(player, card, ...args) {
@@ -80,6 +82,8 @@ const defaultOnDraw = function(player, card, ...args) {
   game.values[CARDS_DRAWN]++;
   game.debug.log('defaultOnDraw: cards drawn: ' + game.values[CARDS_DRAWN],
       arguments);
+
+  game.turnManager.turnAutoplay();
 }
 
 const defaultOnStartTurn = function(player, announce, ...args) {
@@ -90,20 +94,29 @@ const defaultOnStartTurn = function(player, announce, ...args) {
   game.values[CARDS_DRAWN] = 0;
   game.values[CARDS_PLAYED] = 0;
   game.values[CARDS_DISCARDED] = 0;
-  game.toaster.toast(player.username + '\'s turn!');
-  game.desktop.actionStrings = [];
+  game.values[OPTIONALS_PLAYED] = 0;
 
-  while (game.values[CARDS_TO_DRAW]() > game.values[CARDS_DRAWN]) {
-    game.deck.draw(this.player);
+  game.turnManager.markAll(false);
+
+  game.toaster.toast(player.username + '\'s turn!');
+
+  if (player === game.mainPlayer) {
+    while (game.values[CARDS_TO_DRAW]() > game.values[CARDS_DRAWN]) {
+      game.deck.draw(this.player);
+    }
   }
+}
+
+const defaultOnTurnEnd = function(player, announce, ...args) {
+  game.debug.log('turn-end', arguments);
+
 }
 
 game.events.draw = new ActionList('draw', defaultOnDraw); // player, card, ...
 game.events.play = new ActionList('play', defaultOnPlay); // player, card, pile, ...
 
-game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // player, announce, ...
 game.events.steal = new ActionList('steal'); // card, fromPlayer, toPlayer, ...
-
-// not in use currently
 game.events.discard = new ActionList('discard', defaultOnDiscard); //player, card, pile, ...
-game.events.turnEnd = new ActionList('turnEnd'); // player, card, pile, ...
+
+game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // player, announce, ...
+game.events.turnEnd = new ActionList('turnEnd', defaultOnTurnEnd); // player, announce...
