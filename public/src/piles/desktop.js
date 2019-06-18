@@ -62,6 +62,10 @@ class Desktop extends PlayableField {
     }
   }
 
+  pushActionUpdate(s) {
+    this.actionStrings.push(s);
+  }
+
   pushActionString(player, action) {
     this.actionStrings.push('shift\\' + player.username + '> ' + action);
   }

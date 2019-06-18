@@ -17,13 +17,24 @@ class SelectionStack {
         this.items = this.items.filter(o => o.constructor.name !== protoName);
         this.items.push(item);
         return;
+      case SelectionStack.TARGETED:
+        if (this.selectionArgs.valid(item)) {
+          this.items.push(item);
+          if (this.selectionArgs.isComplete(this.items)) {
+            var out = this.items;
+            this.mode = this.selectionArgs.previous.mode;
+            this.items = this.selectionArgs.previous.items;
+            this.selectionArgs.onComplete(out);
+          }
+        } else if (item instanceof Card) {
+          item.shake();
+        }
+        return;
     }
   }
 
   pop() {
     switch (this.mode_) {
-      case SelectionStack.SINGLE:
-      case SelectionStack.MULTI:
       default:
         return this.items.pop();
     }
@@ -52,7 +63,7 @@ class SelectionStack {
   set mode(value) {
     this.mode_ = value;
     if (value == SelectionStack.SINGLE_CLASS) {
-      this.items = [null, null];
+      this.items = [];
     }
   }
 
@@ -60,7 +71,26 @@ class SelectionStack {
     return this.items.reverse();
   }
 
+  select(source, validItemsFn, completedFn, callbackFn, actionString='') {
+    this.selectionArgs = {
+      valid: validItemsFn,
+      isComplete: item => completedFn(item) && item !== source,
+      onComplete: callbackFn,
+      previous: {
+        mode: this.mode,
+        items: this.items
+      }
+    };
+    this.mode = SelectionStack.TARGETED;
+    this.items = [];
+    game.debug.log('select requested', arguments);
+    if (actionString && actionString.length) {
+      game.desktop.pushActionUpdate(actionString);
+    }
+  }
+
   static SINGLE = 0;
   static MULTI = 1;
   static SINGLE_CLASS = 2;
+  static TARGETED = 3;
 }

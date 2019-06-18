@@ -129,3 +129,36 @@ cards = [
   {"id": "48", "desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick},
   {"id": "49", "desc": "", "ticks": "0", "name": "Tick!", "type": Types.tick}
 ]
+
+ruleArray = [
+  {
+    id: 0
+  },
+  {
+    id: 1,
+    onPlay() {
+      // TODO: remove virus
+    }
+  },
+  {
+    id: 2,
+    onPlay() {
+      game.deck.fetchAndPlay(c => c.type === Types.tick);
+    }
+  },
+  {
+    id: 3
+  },
+  {
+    id: 4,
+    onPlay() {
+      game.events.turnStart.add((...args) => {
+        game.debug.log('adding discarded virus to deck', 4);
+        var card = game.discard.fetch(c => c.type === Types.virus);
+        if (card) {
+          game.deck.collect(card);
+        }
+      })
+    }
+  }
+]

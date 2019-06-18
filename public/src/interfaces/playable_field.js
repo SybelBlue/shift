@@ -17,6 +17,16 @@ class PlayableField extends Clickable {
         ...this.dimension, ...CORNER_ROUNDING);
   }
 
+  fetch(filter) {
+    var card = this.cards.find(filter);
+    if (card) {
+      game.debug.log('fetched', card);
+    } else {
+      game.debug.log('fetch failed, no such card', filter);
+    }
+    return card;
+  }
+
   collect(card) {
     if (!card) {
       return;

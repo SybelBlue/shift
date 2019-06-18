@@ -24,30 +24,36 @@ class ActionList {
   }
 
   fire(...args) {
-    const list = this.listeners_;
-    var next = [];
-    for (var i = 0, listener; listener = list[i]; i++) {
-      var res = listener(...args);
+    this.fireArgs = args;
+    this.counter_ = 0;
+    this.next_ = [];
+    if (this.listeners_.length) {
+      this.listeners_[0]((...args) => this.advance_(...args), ...args);
+    }
+  }
 
-      if (res && this.hook) {
-        this.hook(res);
-      }
-
-      if (res !== REMOVE_ACTION) {
-        next.push(listener);
-      }
-
-      if (res === HALT_FIRE) {
-        game.debug.log('halted firing!', listener);
-        return;
-      }
+  advance_(result) {
+    var listener = this.listeners_[this.counter_];
+    if (result !== REMOVE_ACTION) {
+      this.next_.push(listener);
     }
 
-    this.listeners_ = next;
+    if (result === HALT_FIRE) {
+      game.debug.log('halted firing!', listener);
+      this.listeners_ = this.next_;
+      return;
+    }
+
+    this.counter_++;
+    if (this.counter_ >= this.listeners_.length) {
+      return;
+    }
+
+    this.listeners_[this.counter_]((...args) => this.advance_(...args), ...this.fireArgs)
   }
 }
 
-const defaultOnPlay = function(player, card, pile, ...args) {
+const defaultOnPlay = function(callback, player, card, pile, ...args) {
   game.values[CARDS_PLAYED]++;
   game.debug.log('defaultOnPlay: cards played: ' + game.values[CARDS_PLAYED],
       arguments);
@@ -55,19 +61,21 @@ const defaultOnPlay = function(player, card, pile, ...args) {
   game.desktop.pushPlayString(player, card);
 
   socket.emit('play', {player: player, card: card.name})
-  // if (card.ruleset.onEnter) ...
+  // if (card.ruleset.onPlay) ...
 
   game.turnManager.turnAutoplay();
+  callback(null);
 }
 
-const defaultOnDiscard = function(player, card, pile, ...args) {
+const defaultOnDiscard = function(callback, player, card, pile, ...args) {
   game.events.play.fire(player, card, pile, ...args);
   game.values[CARDS_DISCARDED]++;
   game.debug.log('defaultOnDiscard: cards discarded: ' +
         game.values[CARDS_DISCARDED], arguments);
+  callback(null);
 }
 
-const defaultOnDraw = function(player, card, ...args) {
+const defaultOnDraw = function(callback, player, card, ...args) {
   socket.emit('draw', {card: card.name, player: player});
   game.desktop.pushActionString(player, 'draw');
 
@@ -84,9 +92,10 @@ const defaultOnDraw = function(player, card, ...args) {
       arguments);
 
   game.turnManager.turnAutoplay();
+  callback(null);
 }
 
-const defaultOnStartTurn = function(player, announce, ...args) {
+const defaultOnStartTurn = function(callback, player, announce, ...args) {
   if (announce) {
     socket.emit('next-turn', player.username);
   }
@@ -95,7 +104,6 @@ const defaultOnStartTurn = function(player, announce, ...args) {
   game.values[CARDS_PLAYED] = 0;
   game.values[CARDS_DISCARDED] = 0;
   game.values[OPTIONALS_PLAYED] = 0;
-
   game.turnManager.markAll(false);
 
   game.toaster.toast(player.username + '\'s turn!');
@@ -105,18 +113,19 @@ const defaultOnStartTurn = function(player, announce, ...args) {
       game.deck.draw(this.player);
     }
   }
+  callback(null);
 }
 
-const defaultOnTurnEnd = function(player, announce, ...args) {
+const defaultOnTurnEnd = function(callback, player, announce, ...args) {
   game.debug.log('turn-end', arguments);
-
+  callback(null);
 }
 
-game.events.draw = new ActionList('draw', defaultOnDraw); // player, card, ...
-game.events.play = new ActionList('play', defaultOnPlay); // player, card, pile, ...
+game.events.draw = new ActionList('draw', defaultOnDraw); // callback, player, card, ...
+game.events.play = new ActionList('play', defaultOnPlay); // callback, player, card, pile, ...
 
-game.events.steal = new ActionList('steal'); // card, fromPlayer, toPlayer, ...
-game.events.discard = new ActionList('discard', defaultOnDiscard); //player, card, pile, ...
+game.events.steal = new ActionList('steal'); // callback, card, fromPlayer, toPlayer, ...
+game.events.discard = new ActionList('discard', defaultOnDiscard); // callback, player, card, pile, ...
 
-game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // player, announce, ...
-game.events.turnEnd = new ActionList('turnEnd', defaultOnTurnEnd); // player, announce...
+game.events.turnStart = new ActionList('turnStart', defaultOnStartTurn); // callback, player, announce, ...
+game.events.turnEnd = new ActionList('turnEnd', defaultOnTurnEnd); // callback, player, announce...

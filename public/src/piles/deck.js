@@ -22,6 +22,11 @@ class Deck extends PlayableField {
     });
   }
 
+  fetchAndPlay(filter) {
+    var card = super.fetch(filter);
+    game.hand.collect(card);
+  }
+
   select() {
     game.selectedStack.pop();  // self
     this.draw();
