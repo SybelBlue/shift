@@ -31,7 +31,7 @@ function setup() {
   game.desktop = new Desktop();
 
   var starters = constructCardArrayFromJSONs(startingCards);
-  starters.forEach(autoplay);
+  starters.forEach(s => autoplay(s, true));
   game.values.reset();
 
   game.toaster.toast('You, ' + game.mainPlayer.username +
