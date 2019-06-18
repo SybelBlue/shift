@@ -1,4 +1,43 @@
 module.exports = class Game {
+  constructor(playerSocket) {
+    this.id = 'room ' + Date.now();
+    this.idDict = {};
+    this.members = [playerSocket];
+    this.deck = [];
+    this.leadPlayerSocket = playerSocket;
+    console.log(this.members);
+    this.notifySocket(playerSocket);
+  }
+
+  notifySocket(socket) {
+    socket.join(this.id);
+  }
+
+  addSocket(socket) {
+    if (this.isFull()) {
+      return false;
+    }
+
+    this.members.push(socket);
+    this.notifySocket(socket);
+    return true;
+  }
+
+  removeSocket(socket, name=null) {
+    if (name) {
+      Game.takenNames.splice(Game.takenNames.indexOf(name), 1);
+    }
+    this.members.splice(this.members.indexOf(socket), 1);
+  }
+
+  isFull() {
+    return this.members.length >= 4;
+  }
+
+  getName(socket) {
+    return this.idDict[socket.id];
+  }
+
   static generateUsername(push=true) {
     function getRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length) % arr.length];

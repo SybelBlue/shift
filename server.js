@@ -15,7 +15,7 @@ var io = socket(server);
 
 io.sockets.on('connection', newConnection);
 
-var gameArray = [new Game()];
+// var gameArray = [new Game()];
 var idDict = {};
 
 function newConnection(socket) {
@@ -60,3 +60,35 @@ function newConnection(socket) {
     socket.broadcast.emit('play', obj);
   }
 }
+
+/**
+var gameArray = [];
+gameArray.peek = () => gameArray.length? gameArray[gameArray.length - 1]: null;
+
+console.log('socket server is running!');
+
+function newConnection(socket) {
+  var game = gameArray.find(g => !g.isFull());
+  if (!game) {
+    gameArray.push(game = new Game(socket));
+    console.log('new game');
+    console.log(gameArray);
+  }
+
+  var name = Game.generateUsername();
+  game.idDict[socket.id] = name;
+  game.idDict[name] = socket.id;
+
+  const broadcast = (...data) => socket.broadcast.in(game.id).emit(...data);
+  const broadcastAll = (...data) => io.sockets.in(game.id).emit(...data);
+
+  console.log('new connection: ' + name + ' (' + socket.id + ')');
+
+  socket.emit('username', name);
+  socket.emit('game-id', {id: game.id, leader: game.leadPlayerSocket.id});
+
+  broadcast('new-player', {socketId: socket.id, username: name});
+  var members = game.members.map(m => m.id);
+  socket.emit('players', {members: members, idDict: game.idDict});
+  console.log(members.map(id => game.idDict[id]));
+*/

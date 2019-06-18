@@ -8,6 +8,7 @@ function makeSocket() {
   socket.on('play', onPlay);
   socket.on('leave', onDisconnect);
   socket.on('next-turn', onNextTurn);
+  socket.on('game-id', onGameId);
 }
 
 const onNewPlayer = (data) => {
@@ -50,4 +51,10 @@ const onDisconnect = (socketId) => {
 const onNextTurn = (playerName) => {
   game.debug.log('recieving turn start', playerName);
   game.turnManager.nextTurn(false);
+}
+
+const onGameId = (data) => {
+  game.id = data.id;
+  game.isLeader = game.mainPlayer && data.leader === game.mainPlayer.socketid;
+  game.debug.log('room data', data);
 }

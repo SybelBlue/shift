@@ -6,6 +6,7 @@
 // async deck sync
 // ruleset encoding scheme
 // task manager: timer card indicator
+// text chat
 
 */
 

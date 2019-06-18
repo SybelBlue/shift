@@ -76,7 +76,7 @@ const defaultOnDraw = function(player, card, ...args) {
     game.debug.log('forced play', card);
     game.values[CARDS_PLAYED]--;
     autoplay(card);
-    game.deck.draw(player);
+    game.deck.draw(player, true);
   }
 
   game.values[CARDS_DRAWN]++;
