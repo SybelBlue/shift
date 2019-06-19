@@ -37,7 +37,9 @@ class Deck extends PlayableField {
       this.refresh();
     }
     var card = this.getRandom();
+    game.debug.log('draw');
     game.hand.collect(card);
+    return card;
   }
 
   refresh() {
@@ -56,15 +58,6 @@ class Deck extends PlayableField {
     var card = this.cards.find(c => c.name === name);
     game.exileField.collect(card);
     game.debug.log('cards removed: ', n - this.cards.length);
-  }
-
-  getRandom() {
-    var index = Math.floor(random() * this.cards.length) % this.cards.length;
-    var card = this.cards[index];
-    card.flipped = true;
-    card.visible = true;
-    game.debug.log('draw', card);
-    return card;
   }
 
   static defaultPosition() {

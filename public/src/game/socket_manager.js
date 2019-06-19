@@ -17,7 +17,7 @@ const onNewPlayer = (data) => {
   game.desktop.pushActionString(data, 'join');
 }
 
-const onUsername = name => game.username = name;
+const onUsername = (name) => game.username = name;
 
 const onPlayersAnnounce = (data) => {
   var keys = data.clients;
@@ -28,7 +28,9 @@ const onPlayersAnnounce = (data) => {
 const onDraw = (data) => {
   var card = getCardFromName(data.card);
   game.debug.log('recieving draw: ' + data.card, card);
-  game.desktop.pushActionString(data.player, 'draw');
+  if (game.desktop) {
+    game.desktop.pushActionString(data.player, 'draw');
+  }
   game.deck.remove(data.card);
 }
 

@@ -27,6 +27,17 @@ class PlayableField extends Clickable {
     return card;
   }
 
+  getRandom() {
+    if (!this.cards.length) {
+      return null;
+    }
+    var index = Math.floor(random() * this.cards.length) % this.cards.length;
+    var card = this.cards[index];
+    card.flipped = true;
+    card.visible = true;
+    return card;
+  }
+
   collect(card) {
     if (!card) {
       return;

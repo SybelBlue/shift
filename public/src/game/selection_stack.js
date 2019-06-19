@@ -71,8 +71,36 @@ class SelectionStack {
     return this.items.reverse();
   }
 
+  /**
+   * Accepts first n cards of type in types from desktop or hand
+   */
+  selectNTyped(source, n, callback, types=null, actionString='') {
+    this.selectN(source, n,
+      item => (types || types.includes(item.type))
+              && (item.parent === game.desktop || item.parent === game.hand),
+      actionString.length? actionString:
+      'select ' + n + 'x' + (types? types.join(', '): '') + '...');
+  }
+
+  selectN(source, n, callback, valid=null, actionString='') {
+    this.select(
+      source,
+      valid? item => valid(item): (item) => true,
+      (items) => items.length >= n,
+      callback,
+      actionString
+    );
+  }
+
+  /**
+   * source=card id
+   * validItemsFn: ?clickable -> boolean // valid selection
+   * completedFn: this.items -> boolean // done waiting for selection
+   * callbackFn: this.items -> ? // return selection to
+   */
   select(source, validItemsFn, completedFn, callbackFn, actionString='') {
     this.selectionArgs = {
+      source: source,
       valid: validItemsFn,
       isComplete: item => completedFn(item) && item !== source,
       onComplete: callbackFn,

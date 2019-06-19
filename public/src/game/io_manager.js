@@ -73,7 +73,9 @@ function checkClick() {
 }
 
 function constructCardFromJSON(json) {
-  var card = new Card(json.name, json.ruleset, json.type, json.desc.trim());
+  var id = Number(json.id);
+  var ruleset = ruleArray.find(o => o.id === id);
+  var card = new Card(id, json.name, ruleset, json.type, json.desc.trim());
   card.json_rep = json;
   return card;
 }

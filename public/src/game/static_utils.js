@@ -5,9 +5,24 @@ Array.prototype.peek = function() {
 Array.prototype.sum = function() {
   return this.reduce(sum, 0);
 }
+Array.prototype.remove = function(item) {
+  return this.splice(this.indexOf(item), 1);
+}
+
+function getCardFromId(id) {
+  return getCardFromProp('id', id);
+}
 
 function getCardFromName(name) {
-  return game.allCards.find(c => c.name == name);
+  return getCardFromProp('name', name);
+}
+
+function getCardFromProp(propName, value) {
+  return getCard(c => c[propName] === value);
+}
+
+function getCard(filter) {
+  return game.allCards.find(filter);
 }
 
 function makeNewTypedDiscard(type) {

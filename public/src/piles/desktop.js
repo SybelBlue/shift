@@ -4,6 +4,7 @@ class Desktop extends PlayableField {
     this.usedRegions = [];
     this.fontSize = 30;
     this.actionStrings = [];
+    this.pushActionString(game.mainPlayer, 'join');
   }
 
   display() {

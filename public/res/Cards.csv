@@ -7,7 +7,7 @@ White,4,Browser,,program,,"Each turn, you must move a virus card from the discar
 White,5,Registry,,program,7,
 White,6,Task Manager,,program,8,"On turn, steal program, virus if none"
 White,7,Encryption,,program,,"While you have this card, your cards cannot be stolen or transferred."
-White,8,Bad Link!,,virus,,"On play, lose two cards. You may choose to add this "
+White,8,Bad Link!,,virus,,"On play, lose two cards. You may choose to add this to the hand of the player who's turn is next."
 White,9,Power Outage!,,virus,,"Tick cards can't be played, can't win"
 White,10,Misplaced Juice!,,virus,,"Discard hand, this card cannot be stolen or transferred."
 White,11,Full Memory!,,virus,,Your hand limit is 4
@@ -15,17 +15,17 @@ White,12,Data Mining,,script,,The next player draws from the top of the discard.
 White,13,Timely Draw,,script,,Draw equal to timers played
 White,14,Disk Cleanup,,script,,Everyone discards down to 5 cards
 White,15,Quit,,script,,"Discard any command, program, or virus card"
-White,16,Force Exit,,script,,You may move up to two program or virus cards between players
+White,16,Force Exit,,script,,Transfer two program or virus cards between players
 White,17,Screen Sharing,,script,,Move any two cards from player to player
-White,18,Networking,,script,,"Gather all programs and virus, shuffle, redistribute equally"
+White,18,Networking,,script,,"Gather all programs and viruses, shuffle, redistribute equally"
 White,19,December '69,,script,,"Discard all tick cards in play, draw and discard until tick card comes up "
 White,20,Suite Deal,,end,,If you have 7 or more programs in play
 White,21,Advanced User,,end,,If you have Registry and Task Manager
-White,22,"Off, Then On",,end,,If you loose all cards in your hand then draw again
+White,22,"Off, Then On Again",,end,,"If you start the turn with cards, play them all, and draw back up to 5"
 White,23,A Millenial's Touch,,end,,"If you have two of Werd Editor, Browser, Full Memory!"
 White,24,Glass Half Full,,end,,If you have Misplaced Juice! and Full Memory!
-White,25,Befriend a Prince,,end,,If you have Bad Link! and Antivirus.exe or Browser
-White,26,"Faster, Hotter, Better",,end,,"If you have Overclocked, any program and GPU Accelerated is in play"
+White,25,Befriend a Prince,,end,,If you have Bad Link! and one of Antivirus.exe or Browser
+White,26,"Faster, Hotter, Better",,end,,"If you have Overclocked, GPU Accelerated, and any program"
 White,27,Upgrade,,end,7,If you have three viruses or more
 White,28,Firewall,,end,,If you have three viruses or more and Antivirus.exe
 White,29,A Regular Hacker,,end,,If there are six commands in play and you add a seventh
@@ -35,20 +35,20 @@ White,32,Multitasking 3,,play,,Play 3 cards per turn
 White,33,Multitasking 2,,play,,Play 2 cards per turn
 White,34,Child's Play,,command,,All scripts and ends that are drawn must be played
 White,35,Recycle Bin,,command,,Discard two cards to draw from the top of the discard
-White,36,Bytes and Pieces,,command,,"Draw 8 cards, then give a card to each player from your hand"
+White,36,Bytes and Pieces,,command,,"You may draw 4 cards, then give a card to each player from your hand"
 White,37,Just a Nibble,,command,,All players' hand limit is 4.
 White,38,Stock Wares,,command,,All players' are allowed up to 4 programs and viruses.
 White,39,Quarantine,,command,,Discard two cards to move a virus from player to player
-White,40,Copy/Paste,,command,,"Make a copy of a card, and give it to another player"
-White,41,Overclocked,,command,,Draw an additional card for each timer in play
-White,42,GPU Accelerated,,command,,"Draw an additional card for each program you have, discard an additional card for each virus you have."
-White,43,Ask Your Grandson,,command,,You may let a player steal a random card from your hand to draw two cards
-White,44,Clear Command Line,,command,,"Discard all active command, play, and draw cards, including this one."
-White,45,Public Network,,command,,Play with hands open
+White,40,Overclocked,,command,,Draw an additional card for each timer in play
+White,41,GPU Accelerated,,command,,"Draw an additional card for each program you have, discard an additional card for each virus you have."
+White,42,Ask Your Grandson,,command,,You may let a player steal a random card from your hand to draw two cards
+White,43,Clear Command Line,,command,,"Discard all active command, play, and draw cards, including this one."
+White,44,Public Network,,command,,Play with hands open
+White,45,Tick!,,tick,0,
 White,46,Tick!,,tick,0,
 White,47,Tick!,,tick,0,
-White,48,Tick!,,tick,0,
-White,49,Tick!,,tick,0,
+,48,,,,,
+,49,,,,,
 Blue,50,,,,,
 Blue,51,,,,,
 Blue,52,,,,,

@@ -7,6 +7,7 @@
 // ruleset encoding scheme
 // task manager: timer card indicator
 // text chat
+// if no viable selection end select mode/make cancel option
 
 */
 

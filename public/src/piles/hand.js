@@ -7,11 +7,22 @@ class Hand extends PlayableField {
   }
 
   collect(card) {
+    var fire = !this.cards.includes(card);
     super.collect(card);
-    game.events.draw.fire(this.player, card);
+    if (fire) {
+      game.events.draw.fire(this.player, card);
+    }
     card.interactable = true;
     card.visible = true;
     card.flipped = true;
+    game.values[CARD_COUNT_MAX] = Math.max(
+      game.values[CARD_COUNT_MAX], this.cards.length);
+  }
+
+  lose(card) {
+    super.lose(card);
+    game.values[CARD_COUNT_MIN] = Math.min(
+      game.values[CARD_COUNT_MIN], this.cards.length);
   }
 
   display() {

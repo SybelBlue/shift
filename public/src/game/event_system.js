@@ -3,6 +3,8 @@ class Event {
     this.name = name;
     this.listeners_ = defaultAction? [defaultAction]: [];
     this.hook = hook;
+    this.idList = {};
+    this.firing = 0;
   }
 
   set defaultAction(value) {
@@ -15,8 +17,28 @@ class Event {
     this.listeners_.push(f);
   }
 
+  addWithId(id, f) {
+    this.add(f);
+    this.idList[id] = f;
+  }
+
+  removeWithId(id) {
+    this.remove(this.idList[id]);
+  }
+
   remove(f) {
-    this.listeners_.splice(f);
+    if (!this.firing) {
+      this.listeners_.remove(f);
+    } else {
+      var n = this.listeners_.indexOf(f);
+      if (n < 0) {
+        return;
+      }
+      if (n <= this.counter_) {
+        this.counter_--;
+      }
+      this.listeners_.splice(n, 1);
+    }
   }
 
   clear(f) {
@@ -25,6 +47,7 @@ class Event {
 
   fire(...args) {
     this.fireArgs = args;
+    this.firing++;
     this.counter_ = 0;
     this.next_ = [];
     if (this.listeners_.length) {
@@ -41,11 +64,13 @@ class Event {
     if (result === HALT_FIRE) {
       game.debug.log('halted firing!', listener);
       this.listeners_ = this.next_;
+      this.firing--;
       return;
     }
 
     this.counter_++;
     if (this.counter_ >= this.listeners_.length) {
+      this.firing--;
       return;
     }
 
@@ -62,10 +87,16 @@ const defaultOnPlay = function(callback, player, card, pile, ...args) {
   game.desktop.pushPlayString(player, card);
 
   socket.emit('play', {player: player, card: card.name})
-  // if (card.ruleset.onPlay) ...
+  let finishCallback = () => {
+    game.turnManager.turnAutoplay();
+    callback(null);
+  }
 
-  game.turnManager.turnAutoplay();
-  callback(null);
+  // if (card.ruleset.onPlay) {
+    // card.ruleSet.onPlay(finishCallback)
+  // } else {
+    finishCallback();
+  // }
 }
 
 const defaultOnDiscard = function(callback, player, card, pile, ...args) {
@@ -105,6 +136,9 @@ const defaultOnStartTurn = function(callback, player, announce, ...args) {
   game.values[CARDS_PLAYED] = 0;
   game.values[CARDS_DISCARDED] = 0;
   game.values[OPTIONALS_PLAYED] = 0;
+  game.values[CARD_COUNT_MIN] = game.hand.cards.length;
+  game.values[CARD_COUNT_MAX] = game.hand.cards.length;
+  game.values[CARD_COUNT_START] = game.hand.cards.length;
   game.turnManager.markAll(false);
 
   game.toaster.toast(player.username + '\'s turn!');

@@ -1,9 +1,11 @@
 class Card extends Clickable {
-  constructor(name, ruleset, type, desc='') {
+  constructor(id, name, ruleset, type, desc='') {
     super(new p5.Vector(10, 10, 0), [CARD_WIDTH, CARD_HEIGHT]);
+    this.id = id;
     this.flipped = false;
     this.scale = 1;
     this.cornerRoundPx = CORNER_ROUNDING;
+    this.ruleset = ruleset;
 
     this.type = type;
     this.name = name;
@@ -127,7 +129,7 @@ class Card extends Clickable {
   }
 
   get name() {
-    return this.name_.join(' ');
+    return this.name_.join(' ').trim();
   }
 
   set hover(value) {
